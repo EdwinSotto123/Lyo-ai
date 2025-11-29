@@ -3,14 +3,15 @@ import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { AuthProvider } from "@/lib/auth-context"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Kinso - One inbox, every conversation",
+  title: "Lyo - One inbox, every conversation",
   description:
-    "Kinso brings together all your messages, emails, and contacts. It intelligently learns your goals, understands what matters most, and drafts replies that sound like you.",
+    "Lyo brings together all your messages, emails, and contacts. It intelligently learns your goals, understands what matters most, and drafts replies that sound like you.",
   generator: "v0.app",
 }
 
@@ -24,9 +25,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

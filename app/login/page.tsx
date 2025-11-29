@@ -24,7 +24,7 @@ export default function LoginPage() {
       <header className="p-6">
         <Link href="/" className="inline-flex items-center gap-2">
           <KinsoLogo className="h-8 w-8" />
-          <span className="text-xl font-semibold text-foreground">KINSO</span>
+          <span className="text-xl font-semibold text-foreground">LYO</span>
         </Link>
       </header>
 
@@ -47,7 +47,7 @@ export default function LoginPage() {
 
             {/* Title */}
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-foreground mb-2">Welcome to Kinso</h1>
+              <h1 className="text-2xl font-bold text-foreground mb-2">Welcome to Lyo</h1>
               <p className="text-muted-foreground">One inbox for every conversation</p>
             </div>
 
@@ -119,7 +119,7 @@ export default function LoginPage() {
 
       {/* Footer */}
       <footer className="p-6 text-center">
-        <p className="text-sm text-muted-foreground">© 2025 Kinso. All rights reserved.</p>
+        <p className="text-sm text-muted-foreground">© 2025 Lyo. All rights reserved.</p>
       </footer>
     </div>
   )
