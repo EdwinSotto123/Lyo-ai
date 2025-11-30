@@ -40,6 +40,16 @@ export function AIVoiceSelector({ open, onOpenChange }: AIVoiceSelectorProps) {
         setSelectedMode(null)
     }
 
+    const selectStableMode = () => {
+        console.log("🟢 Selected: STABLE mode")
+        setSelectedMode("stable")
+    }
+
+    const selectBetaMode = () => {
+        console.log("🔵 Selected: BETA mode")
+        setSelectedMode("beta")
+    }
+
     // If a mode is selected, show that modal
     if (selectedMode === "stable") {
         return (
@@ -107,7 +117,7 @@ export function AIVoiceSelector({ open, onOpenChange }: AIVoiceSelectorProps) {
                     
                     {/* Stable Mode Button */}
                     <button
-                        onClick={() => setSelectedMode("stable")}
+                        onClick={selectStableMode}
                         className="group relative w-full flex items-center gap-4 rounded-2xl bg-gradient-to-r from-teal-500/10 to-emerald-500/5 border border-teal-500/30 hover:border-teal-400 hover:from-teal-500/20 hover:to-emerald-500/10 p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-teal-500/10"
                     >
                         {/* Icon */}
@@ -140,7 +150,7 @@ export function AIVoiceSelector({ open, onOpenChange }: AIVoiceSelectorProps) {
 
                     {/* Beta Mode Button */}
                     <button
-                        onClick={() => setSelectedMode("beta")}
+                        onClick={selectBetaMode}
                         className="group relative w-full flex items-center gap-4 rounded-2xl bg-gradient-to-r from-blue-500/10 to-purple-500/5 border border-blue-500/20 hover:border-blue-400 hover:from-blue-500/15 hover:to-purple-500/10 p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
                     >
                         {/* Icon */}
