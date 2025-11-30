@@ -9,8 +9,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { User, CreditCard, Bell, Shield, Webhook, Upload } from "lucide-react"
+import { useAuth } from "@/lib/auth-context"
 
 export default function SettingsPage() {
+  const { user } = useAuth()
+
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
@@ -53,8 +56,8 @@ export default function SettingsPage() {
               <CardContent className="space-y-6">
                 <div className="flex items-center gap-6">
                   <Avatar className="h-20 w-20">
-                    <AvatarImage src="/placeholder.svg?key=935ji" />
-                    <AvatarFallback>JD</AvatarFallback>
+                    <AvatarImage src={user?.avatar_url || ""} referrerPolicy="no-referrer" />
+                    <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
                   </Avatar>
                   <Button variant="outline" className="gap-2 bg-transparent">
                     <Upload className="h-4 w-4" />
@@ -62,21 +65,13 @@ export default function SettingsPage() {
                   </Button>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label>First Name</Label>
-                    <Input defaultValue="John" />
+                  <div className="space-y-2 md:col-span-2">
+                    <Label>Name</Label>
+                    <Input defaultValue={user?.name || ""} />
                   </div>
-                  <div className="space-y-2">
-                    <Label>Last Name</Label>
-                    <Input defaultValue="Doe" />
-                  </div>
-                  <div className="space-y-2">
+                  <div className="space-y-2 md:col-span-2">
                     <Label>Email</Label>
-                    <Input defaultValue="john@company.com" type="email" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Phone</Label>
-                    <Input defaultValue="+1 (555) 123-4567" type="tel" />
+                    <Input defaultValue={user?.email || ""} type="email" disabled />
                   </div>
                 </div>
                 <div className="space-y-2">

@@ -28,6 +28,7 @@ import {
   User,
   CreditCard,
 } from "lucide-react"
+import { useAuth } from "@/lib/auth-context"
 
 interface AppSidebarProps {
   onCommandOpen: () => void
@@ -47,6 +48,18 @@ const navigation = [
 export function AppSidebar({ onCommandOpen, onNavigate }: AppSidebarProps) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+  const { user, signOut } = useAuth()
+
+  // Get user initials for fallback
+  const getUserInitials = () => {
+    if (!user?.name) return "U"
+    return user.name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2)
+  }
 
   return (
     <aside
@@ -143,13 +156,13 @@ export function AppSidebar({ onCommandOpen, onNavigate }: AppSidebarProps) {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className={cn("w-full justify-start gap-3 px-2", collapsed && "justify-center")}>
               <Avatar className="h-8 w-8">
-                <AvatarImage src="/diverse-user-avatars.png" />
-                <AvatarFallback>JD</AvatarFallback>
+                <AvatarImage src={user?.avatar_url || ""} referrerPolicy="no-referrer" />
+                <AvatarFallback>{getUserInitials()}</AvatarFallback>
               </Avatar>
               {!collapsed && (
                 <div className="flex-1 text-left">
-                  <p className="text-sm font-medium">John Doe</p>
-                  <p className="text-xs text-muted-foreground">Pro Plan</p>
+                  <p className="text-sm font-medium">{user?.name || "User"}</p>
+                  <p className="text-xs text-muted-foreground">{user?.email || ""}</p>
                 </div>
               )}
             </Button>
@@ -168,7 +181,16 @@ export function AppSidebar({ onCommandOpen, onNavigate }: AppSidebarProps) {
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive">
+            <DropdownMenuItem
+              className="text-destructive"
+              onClick={async () => {
+                try {
+                  await signOut()
+                } catch (error) {
+                  console.error("Error signing out:", error)
+                }
+              }}
+            >
               <LogOut className="mr-2 h-4 w-4" />
               Log out
             </DropdownMenuItem>

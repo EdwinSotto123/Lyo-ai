@@ -1,8 +1,14 @@
-[00:00:03.907] Server  WARN     ⚠ Minimum recommended TypeScript version is v5.1.0, older versions can potentially be incompatible with Next.js. Detected: 5.0.2
-[00:00:03.976] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:04.576] Server  LOG      ✓ Ready in 3.3s
-[00:00:07.887] Server  LOG      ○ Compiling /[locale]/dashboard/agent ...
-[00:00:25.513] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+[00:00:03.403] Server  WARN     ⚠ Minimum recommended TypeScript version is v5.1.0, older versions can potentially be incompatible with Next.js. Detected: 5.0.2
+[00:00:03.469] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:03.944] Server  LOG      ✓ Ready in 2.9s
+[00:00:07.330] Server  LOG      ○ Compiling /[locale]/dashboard/contacts ...
+[00:00:10.978] Browser ERROR   Error initiating Google sign in: {}
+[00:00:10.980] Browser ERROR   unhandledRejection: TypeError: Failed to fetch
+[00:00:13.376] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:14.572] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:14.573] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es/dashboard/contacts","route":"/[locale]/dashboard/contacts"}
+[00:00:14.573] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/dashboard/contacts color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard/contacts","o":"http://localhost:3000/es/dashboard/contacts","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764478158127}
+[00:00:19.185] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -12,19 +18,28 @@
 
 It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-https://react.dev/link/hydration-mismatch
+%s%s https://react.dev/link/hydration-mismatch 
 
   ...
-    <RenderFromTemplateContext>
-      <ScrollAndFocusHandler segmentPath={[...]}>
-        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
-          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
-            <LoadingBoundary name="/" loading={null}>
-              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
-                <HTTPAccessFallbackErrorBoundary pathname="/es" notFound={<SegmentViewNode>} forbidden={undefined} ...>
-                  <RedirectBoundary>
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/es/login" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head headCacheNode={{lazyData:null, ...}}>
+                    <__next_viewport_boundary__>
+                    <Next.Metadata>
+                      <div
+                        hidden={true}
+-                       bis_skin_checked="1"
+                      >
+                    ...
+                  ...
                     <RedirectErrorBoundary router={{...}}>
-                      <InnerLayoutRouter url="/es" tree={[...]} params={{locale:"es"}} cacheNode={{lazyData:null, ...}} ...>
+                      <InnerLayoutRouter url="/es/login" tree={[...]} params={{locale:"es"}} ...>
                         <SegmentViewNode type="layout" pagePath="[locale]/l...">
                           <SegmentTrieNode>
                           <link>
@@ -35,58 +50,74 @@ https://react.dev/link/hydration-mismatch
                             <html lang="es" suppressHydrationWarning={true}>
                               <body
                                 className="inter_5972bc34-module__OU16Qa__className antialiased"
--                               __processed_88a6d189-a3a9-433f-a21a-e136e849c4fd__="true"
+-                               __processed_1c250d14-6fc6-4ee3-8bc7-58926e066109__="true"
 -                               bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2Zj..."
                               >
                                 ...
-                                  <div className="relative m...">
-                                    <div>
-                                    <div className="text-cente...">
-                                      <p className="text-lg te...">
-                                        <span className="text-orange-500 dark:text-orange-400 font-semibold">
-+                                         12.773
--                                         12,773
-                                        ...
-                                      ...
+                                  <SegmentViewNode type="page" pagePath="[locale]/l...">
+                                    <SegmentTrieNode>
+                                    <ClientPageRoot Component={function LoginPage} serverProvidedParams={{...}}>
+                                      <LoginPage params={Promise} searchParams={Promise}>
+                                        <div
+                                          className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-teal-5..."
+-                                         bis_skin_checked="1"
+                                        >
+                                          <header>
+                                          <main className="flex-1 fle...">
+                                            <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} ...>
+                                              <div
+                                                className="w-full max-w-md"
+                                                style={{opacity:0,transform:"translateY..."}}
+                                                ref={function useMotionRef.useCallback}
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8"
+-                                                 bis_skin_checked="1"
+                                                >
+                                                  <div
+                                                    className="flex justify-center mb-6"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                    <div
+                                                      className="p-3 bg-gradient-to-br from-orange-100 to-teal-100 rou..."
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                  <div
+                                                    className="text-center mb-8"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <button onClick={function signInWithGoogle} disabled={true} ...>
+                                                    <div
+                                                      className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 ro..."
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                    ...
+                                                  <div
+                                                    className="my-6 flex items-center gap-3"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                    <div
+                                                      className="flex-1 h-px bg-gray-200"
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                    <span>
+                                                    <div
+                                                      className="flex-1 h-px bg-gray-200"
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                  ...
+                                                <div
+                                                  className="text-center mt-6"
+-                                                 bis_skin_checked="1"
+                                                >
+                                          ...
                                 ...
                       ...
-          ...
+                  ...
 
-[00:00:25.624] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:25.624] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es","route":"/[locale]"}
-[00:00:25.624] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es","route":"/[locale]"}
-[00:00:25.624] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764476929988}
-[00:00:25.625] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764476929989}
-[00:00:31.352] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/login color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/login","o":"http://localhost:3000/es/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764476935704}
-[00:00:35.085] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/dashboard color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard","o":"http://localhost:3000/es/dashboard","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764476939353}
-[00:00:41.647] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/dashboard/agent color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard/agent","o":"http://localhost:3000/es/dashboard/agent","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764476945964}
-[00:00:57.006] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/dashboard/contacts color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard/contacts","o":"http://localhost:3000/es/dashboard/contacts","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764476961241}
-[00:00:59.054] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:00.267] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:01:00.267] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es/dashboard/contacts","route":"/[locale]/dashboard/contacts"}
-[00:01:00.268] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/dashboard/contacts color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard/contacts","o":"http://localhost:3000/es/dashboard/contacts","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764476964118}
-[00:01:27.794] Server  LOG      ✓ Compiled in 630ms
-[00:01:37.437] Server  LOG      ✓ Compiled in 531ms
-[00:02:32.767] Server  LOG      ✓ Compiled in 503ms
-[00:02:40.033] Server  LOG      ✓ Compiled in 566ms
-[00:04:29.733] Server  LOG      ✓ Compiled in 790ms
-[00:04:35.630] Server  LOG      ✓ Compiled in 504ms
-[00:04:40.132] Server  LOG      ✓ Compiled in 397ms
-[00:04:46.199] Server  LOG      ✓ Compiled in 714ms
-[00:04:51.079] Server  LOG      ✓ Compiled in 520ms
-[00:06:01.045] Server  LOG      ✓ Compiled in 800ms
-[00:06:08.821] Server  LOG      ✓ Compiled in 401ms
-[00:06:29.878] Server  LOG      ✓ Compiled in 442ms
-[00:07:04.950] Server  LOG      ✓ Compiled in 439ms
-[00:07:12.527] Server  LOG      ✓ Compiled in 435ms
-[00:07:17.156] Server  LOG      ✓ Compiled in 452ms
-[00:07:20.902] Server  LOG      ✓ Compiled in 516ms
-[00:07:33.947] Server  LOG      ✓ Compiled in 516ms
-[00:07:47.763] Server  LOG      ✓ Compiled in 499ms
-[00:07:53.379] Server  LOG      ✓ Compiled in 653ms
-[00:08:03.121] Server  LOG      ✓ Compiled in 733ms
-[00:08:08.104] Server  LOG      ✓ Compiled in 419ms
-[00:08:20.366] Server  LOG      ✓ Compiled in 513ms
-[00:08:25.884] Server  LOG      ✓ Compiled in 482ms
-[00:08:36.004] Server  LOG      ✓ Compiled in 681ms
-[00:08:39.949] Server  LOG      ✓ Compiled in 479ms
+[00:00:19.229] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:19.229] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es/login","route":"/[locale]/login"}
+[00:00:19.230] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/login color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/login","o":"http://localhost:3000/es/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764478163275}
+[00:00:23.635] Browser ERROR   Error initiating Google sign in: {}
+[00:00:23.635] Browser ERROR   unhandledRejection: TypeError: Failed to fetch
