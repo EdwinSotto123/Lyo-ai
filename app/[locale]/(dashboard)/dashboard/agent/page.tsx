@@ -300,13 +300,7 @@ const suggestions = [
   "Explain cloud computing basics",
 ];
 
-const mockResponses = [
-  "That's a great question! Let me help you understand this concept better. The key thing to remember is that proper implementation requires careful consideration of the underlying principles and best practices in the field.",
-  "I'd be happy to explain this topic in detail. From my understanding, there are several important factors to consider when approaching this problem. Let me break it down step by step for you.",
-  "This is an interesting topic that comes up frequently. The solution typically involves understanding the core concepts and applying them in the right context. Here's what I recommend...",
-  "Great choice of topic! This is something that many developers encounter. The approach I'd suggest is to start with the fundamentals and then build up to more complex scenarios.",
-  "That's definitely worth exploring. From what I can see, the best way to handle this is to consider both the theoretical aspects and practical implementation details.",
-];
+// Mock responses removed
 
 export default function AgentPage() {
   const [model, setModel] = useState<string>(models[0].id);
@@ -317,86 +311,111 @@ export default function AgentPage() {
   const [status, setStatus] = useState<
     "submitted" | "streaming" | "ready" | "error"
   >("ready");
-  const [messages, setMessages] = useState<MessageType[]>(initialMessages);
+  const [messages, setMessages] = useState<MessageType[]>([
+    {
+      key: nanoid(),
+      from: "assistant",
+      versions: [{ id: nanoid(), content: "Hello! I am LYO Agent. How can I help you today?" }],
+    }
+  ]);
   const [streamingMessageId, setStreamingMessageId] = useState<string | null>(
     null
   );
 
   const selectedModelData = models.find((m) => m.id === model);
 
-  const streamResponse = useCallback(
-    async (messageId: string, content: string) => {
-      setStatus("streaming");
-      setStreamingMessageId(messageId);
+  const sendMessage = async (content: string) => {
+    const userMessageId = `user-${Date.now()}`;
+    const assistantMessageId = `assistant-${Date.now()}`;
 
-      const words = content.split(" ");
-      let currentContent = "";
+    // Add user message
+    const userMessage: MessageType = {
+      key: userMessageId,
+      from: "user",
+      versions: [{ id: userMessageId, content }],
+    };
 
-      for (let i = 0; i < words.length; i++) {
-        currentContent += (i > 0 ? " " : "") + words[i];
+    // Add empty assistant message
+    const assistantMessage: MessageType = {
+      key: assistantMessageId,
+      from: "assistant",
+      versions: [{ id: assistantMessageId, content: "" }],
+    };
 
-        setMessages((prev) =>
-          prev.map((msg) => {
-            if (msg.versions.some((v) => v.id === messageId)) {
-              return {
-                ...msg,
-                versions: msg.versions.map((v) =>
-                  v.id === messageId ? { ...v, content: currentContent } : v
-                ),
-              };
+    setMessages((prev) => [...prev, userMessage, assistantMessage]);
+    setStatus("streaming");
+    setStreamingMessageId(assistantMessageId);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: content,
+          user_id: "user-default",
+          session_id: "session-" + Date.now(),
+        }),
+      });
+
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let assistantContent = "";
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split("\n\n");
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              try {
+                const data = JSON.parse(line.slice(6));
+                
+                if (data.text) {
+                  assistantContent += data.text;
+                  
+                  setMessages((prev) =>
+                    prev.map((msg) => {
+                      if (msg.key === assistantMessageId) {
+                        return {
+                          ...msg,
+                          versions: [{ ...msg.versions[0], content: assistantContent }],
+                        };
+                      }
+                      return msg;
+                    })
+                  );
+                }
+              } catch (e) {
+                console.error("Error parsing SSE:", e);
+              }
             }
-            return msg;
-          })
-        );
-
-        await new Promise((resolve) =>
-          setTimeout(resolve, Math.random() * 100 + 50)
-        );
+          }
+        }
       }
-
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setMessages((prev) =>
+        prev.map((msg) => {
+          if (msg.key === assistantMessageId) {
+            return {
+              ...msg,
+              versions: [{ ...msg.versions[0], content: "Sorry, I encountered an error. Please try again." }],
+            };
+          }
+          return msg;
+        })
+      );
+    } finally {
       setStatus("ready");
       setStreamingMessageId(null);
-    },
-    []
-  );
-
-  const addUserMessage = useCallback(
-    (content: string) => {
-      const userMessage: MessageType = {
-        key: `user-${Date.now()}`,
-        from: "user",
-        versions: [
-          {
-            id: `user-${Date.now()}`,
-            content,
-          },
-        ],
-      };
-
-      setMessages((prev) => [...prev, userMessage]);
-
-      setTimeout(() => {
-        const assistantMessageId = `assistant-${Date.now()}`;
-        const randomResponse =
-          mockResponses[Math.floor(Math.random() * mockResponses.length)];
-
-        const assistantMessage: MessageType = {
-          key: `assistant-${Date.now()}`,
-          from: "assistant",
-          versions: [
-            {
-              id: assistantMessageId,
-              content: "",
-            },
-          ],
-        };
-
-        setMessages((prev) => [...prev, assistantMessage]);
-        streamResponse(assistantMessageId, randomResponse);
-      }, 500);
-    },
-    [streamResponse]
-  );
+    }
+  };
 
   const handleSubmit = (message: PromptInputMessage) => {
     const hasText = Boolean(message.text);
@@ -414,13 +433,13 @@ export default function AgentPage() {
       });
     }
 
-    addUserMessage(message.text || "Sent with attachments");
+    sendMessage(message.text || "Sent with attachments");
     setText("");
   };
 
   const handleSuggestionClick = (suggestion: string) => {
     setStatus("submitted");
-    addUserMessage(suggestion);
+    sendMessage(suggestion);
   };
 
   return (

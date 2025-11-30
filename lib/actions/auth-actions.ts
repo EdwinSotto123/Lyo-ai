@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers"
 
-const BACKEND_URL = "http://127.0.0.1:5003"
+const BACKEND_URL = "http://127.0.0.1:5000"
 
 export async function getAuthStatus() {
     try {
