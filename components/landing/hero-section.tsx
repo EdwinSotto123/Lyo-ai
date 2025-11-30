@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react"
 import { ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { InboxMockup } from "@/components/inbox-mockup"
 import { useTranslations } from "next-intl"
+import Image from "next/image"
+import { motion } from "framer-motion"
 
 export function HeroSection() {
   const t = useTranslations()
@@ -35,9 +36,72 @@ export function HeroSection() {
             </p>
           </div>
 
-          {/* Right content - Inbox Mockup */}
-          <div className="relative">
-            <InboxMockup />
+          {/* Right content - Image Composition */}
+          <div className="relative h-[400px] lg:h-[600px] w-full flex items-center justify-center perspective-[1000px]">
+            {/* Main Dashboard Interface */}
+            <motion.div
+              initial={{ opacity: 0, y: 20, rotateX: 5 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative z-10 w-[90%] max-w-2xl shadow-2xl rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950"
+            >
+              <Image
+                src="/intg1.webp"
+                alt="Dashboard Interface"
+                width={1200}
+                height={800}
+                className="w-full h-auto object-cover"
+                priority
+              />
+            </motion.div>
+
+            {/* Phone Mockup - Bottom Left */}
+            <motion.div
+              initial={{ opacity: 0, x: -50, y: 50 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="absolute bottom-0 left-0 lg:-left-4 z-20 w-[30%] max-w-[180px] shadow-2xl rounded-[2rem] overflow-hidden border-[6px] border-gray-900 bg-gray-900"
+            >
+              <Image
+                src="/cel1.png"
+                alt="Mobile Interface"
+                width={400}
+                height={800}
+                className="w-full h-auto object-cover"
+              />
+            </motion.div>
+
+            {/* Floating Message 1 - Top Right */}
+            <motion.div
+              initial={{ opacity: 0, x: 20, y: -20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="absolute top-12 right-0 lg:-right-8 z-30 w-[45%] max-w-[280px] drop-shadow-xl"
+            >
+              <Image
+                src="/msj1.webp"
+                alt="Notification"
+                width={400}
+                height={150}
+                className="w-full h-auto rounded-lg"
+              />
+            </motion.div>
+
+            {/* Floating Message 2 - Right Center */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="absolute top-1/2 right-4 lg:-right-12 z-30 w-[50%] max-w-[300px] drop-shadow-xl"
+            >
+              <Image
+                src="/msj2.webp"
+                alt="Message"
+                width={400}
+                height={150}
+                className="w-full h-auto rounded-lg"
+              />
+            </motion.div>
           </div>
         </div>
 
