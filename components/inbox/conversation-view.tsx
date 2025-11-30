@@ -1,11 +1,36 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { MessageCircle, Phone, Video, MoreHorizontal, User, Send, Bot, Sparkles, Paperclip, Smile } from "lucide-react"
+import { MessageCircle, Phone, Video, MoreHorizontal, User, Bot, Sparkles } from "lucide-react"
+import {
+  Conversation,
+  ConversationContent,
+  ConversationScrollButton,
+} from "@/components/ai-elements/conversation"
+import { Message, MessageContent } from "@/components/ai-elements/message"
+import { MessageResponse } from "@/components/ai-elements/message"
+import {
+  PromptInput,
+  PromptInputActionAddAttachments,
+  PromptInputActionMenu,
+  PromptInputActionMenuContent,
+  PromptInputActionMenuTrigger,
+  PromptInputAttachment,
+  PromptInputAttachments,
+  PromptInputBody,
+  PromptInputButton,
+  PromptInputFooter,
+  PromptInputHeader,
+  type PromptInputMessage,
+  PromptInputSubmit,
+  PromptInputTextarea,
+  PromptInputTools,
+} from "@/components/ai-elements/prompt-input"
+import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion"
+import { toast } from "sonner"
 
 interface ConversationViewProps {
   conversationId: string | null
@@ -13,47 +38,102 @@ interface ConversationViewProps {
   showContactPanel: boolean
 }
 
-const messages = [
+type MessageType = {
+  key: string
+  from: "user" | "assistant"
+  content: string
+  time: string
+  aiGenerated?: boolean
+}
+
+const initialMessages: MessageType[] = [
   {
-    id: 1,
-    sender: "contact",
+    key: "1",
+    from: "assistant",
     content: "Hey! Just wanted to follow up on our conversation about the project timeline. Do you have any updates?",
     time: "10:30 AM",
-    aiGenerated: false,
   },
   {
-    id: 2,
-    sender: "user",
+    key: "2",
+    from: "user",
     content: "Hi Sarah! Yes, I've been working on the deliverables. We should be ready to present by end of this week.",
     time: "10:35 AM",
-    aiGenerated: false,
   },
   {
-    id: 3,
-    sender: "contact",
+    key: "3",
+    from: "assistant",
     content: "That sounds great! Can we schedule a call to go over the details? Maybe Thursday afternoon?",
     time: "10:38 AM",
-    aiGenerated: false,
   },
   {
-    id: 4,
-    sender: "user",
+    key: "4",
+    from: "user",
     content: "Thursday works perfectly for me. How about 3 PM? I'll send you a calendar invite with a Zoom link.",
     time: "10:42 AM",
     aiGenerated: true,
   },
   {
-    id: 5,
-    sender: "contact",
+    key: "5",
+    from: "assistant",
     content: "Perfect! Looking forward to it. See you then!",
     time: "10:45 AM",
-    aiGenerated: false,
   },
 ]
 
+const suggestions = [
+  "Sure, I can help with that",
+  "Let me check and get back to you",
+  "That sounds great!",
+  "Can we schedule a call?",
+]
+
 export function ConversationView({ conversationId, onToggleContactPanel, showContactPanel }: ConversationViewProps) {
-  const [newMessage, setNewMessage] = useState("")
   const [isAiMode, setIsAiMode] = useState(false)
+  const [text, setText] = useState<string>("")
+  const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready")
+  const [messages, setMessages] = useState<MessageType[]>(initialMessages)
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    const hasText = Boolean(message.text)
+    const hasAttachments = Boolean(message.files?.length)
+
+    if (!(hasText || hasAttachments)) {
+      return
+    }
+
+    setStatus("submitted")
+
+    if (message.files?.length) {
+      toast.success("Files attached", {
+        description: `${message.files.length} file(s) attached to message`,
+      })
+    }
+
+    // Add user message
+    const userMessage: MessageType = {
+      key: `user-${Date.now()}`,
+      from: "user",
+      content: message.text || "Sent with attachments",
+      time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }),
+      aiGenerated: isAiMode,
+    }
+
+    setMessages((prev) => [...prev, userMessage])
+    setText("")
+    setStatus("ready")
+  }
+
+  const handleSuggestionClick = (suggestion: string) => {
+    const userMessage: MessageType = {
+      key: `user-${Date.now()}`,
+      from: "user",
+      content: suggestion,
+      time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }),
+      aiGenerated: isAiMode,
+    }
+
+    setMessages((prev) => [...prev, userMessage])
+  }
 
   if (!conversationId) {
     return (
@@ -105,73 +185,88 @@ export function ConversationView({ conversationId, onToggleContactPanel, showCon
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        {messages.map((message) => (
-          <div key={message.id} className={cn("flex gap-3", message.sender === "user" && "flex-row-reverse")}>
-            {message.sender === "contact" && (
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="/sarah-chen-professional.jpg" />
-                <AvatarFallback>SC</AvatarFallback>
-              </Avatar>
-            )}
-            <div className={cn("max-w-[70%]", message.sender === "user" && "text-right")}>
-              <div
-                className={cn(
-                  "inline-block rounded-2xl px-4 py-2.5",
-                  message.sender === "user"
-                    ? "bg-accent text-accent-foreground rounded-tr-md"
-                    : "bg-secondary rounded-tl-md",
-                )}
-              >
-                <p className="text-sm">{message.content}</p>
-              </div>
-              <div className={cn("flex items-center gap-2 mt-1", message.sender === "user" && "justify-end")}>
-                {message.aiGenerated && (
-                  <span className="flex items-center gap-1 text-[10px] text-accent">
-                    <Bot className="h-3 w-3" />
-                    AI Generated
-                  </span>
-                )}
-                <span className="text-xs text-muted-foreground">{message.time}</span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <div className="flex-1 flex flex-col">
+        <Conversation>
+          <ConversationContent>
+            {messages.map((message) => (
+              <Message from={message.from} key={message.key}>
+                <MessageContent>
+                  <MessageResponse>{message.content}</MessageResponse>
+                </MessageContent>
+                <div className={cn("flex items-center gap-2 mt-1", message.from === "user" && "justify-end")}>
+                  {message.aiGenerated && (
+                    <span className="flex items-center gap-1 text-[10px] text-accent">
+                      <Bot className="h-3 w-3" />
+                      AI Generated
+                    </span>
+                  )}
+                  <span className="text-xs text-muted-foreground">{message.time}</span>
+                </div>
+              </Message>
+            ))}
+          </ConversationContent>
+          <ConversationScrollButton />
+        </Conversation>
 
-      {/* Input */}
-      <div className="border-t border-border p-4">
-        <div className="flex items-center gap-2 mb-3">
-          <Button
-            variant={isAiMode ? "default" : "outline"}
-            size="sm"
-            className="gap-2"
-            onClick={() => setIsAiMode(!isAiMode)}
-          >
-            <Sparkles className="h-4 w-4" />
-            {isAiMode ? "AI Mode Active" : "Enable AI"}
-          </Button>
+        {/* Suggestions and Input */}
+        <div className="grid shrink-0 gap-4 pt-4">
           {isAiMode && (
-            <span className="text-xs text-muted-foreground">LYO will suggest responses based on context</span>
+            <Suggestions className="px-4">
+              {suggestions.map((suggestion) => (
+                <Suggestion
+                  key={suggestion}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  suggestion={suggestion}
+                />
+              ))}
+            </Suggestions>
           )}
-        </div>
-        <div className="flex items-end gap-2">
-          <Button variant="ghost" size="icon" className="shrink-0">
-            <Paperclip className="h-4 w-4" />
-          </Button>
-          <Textarea
-            placeholder={isAiMode ? "Type or let AI suggest a response..." : "Type a message..."}
-            className="min-h-[44px] max-h-32 resize-none bg-secondary/50"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            rows={1}
-          />
-          <Button variant="ghost" size="icon" className="shrink-0">
-            <Smile className="h-4 w-4" />
-          </Button>
-          <Button size="icon" className="shrink-0">
-            <Send className="h-4 w-4" />
-          </Button>
+
+          <div className="w-full px-4 pb-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Button
+                variant={isAiMode ? "default" : "outline"}
+                size="sm"
+                className="gap-2"
+                onClick={() => setIsAiMode(!isAiMode)}
+              >
+                <Sparkles className="h-4 w-4" />
+                {isAiMode ? "AI Mode Active" : "Enable AI"}
+              </Button>
+              {isAiMode && (
+                <span className="text-xs text-muted-foreground">LYO will suggest responses based on context</span>
+              )}
+            </div>
+
+            <PromptInput globalDrop multiple onSubmit={handleSubmit}>
+              <PromptInputHeader>
+                <PromptInputAttachments>
+                  {(attachment) => <PromptInputAttachment data={attachment} />}
+                </PromptInputAttachments>
+              </PromptInputHeader>
+
+              <PromptInputBody>
+                <PromptInputTextarea
+                  onChange={(event) => setText(event.target.value)}
+                  value={text}
+                  placeholder={isAiMode ? "Type or let AI suggest a response..." : "Type a message..."}
+                />
+              </PromptInputBody>
+
+              <PromptInputFooter>
+                <PromptInputTools>
+                  <PromptInputActionMenu>
+                    <PromptInputActionMenuTrigger />
+                    <PromptInputActionMenuContent>
+                      <PromptInputActionAddAttachments />
+                    </PromptInputActionMenuContent>
+                  </PromptInputActionMenu>
+                </PromptInputTools>
+
+                <PromptInputSubmit disabled={!(text.trim() || status) || status === "streaming"} status={status} />
+              </PromptInputFooter>
+            </PromptInput>
+          </div>
         </div>
       </div>
     </div>

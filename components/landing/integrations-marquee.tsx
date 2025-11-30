@@ -15,31 +15,37 @@ import { useTranslations } from "next-intl"
 
 export function IntegrationsMarquee() {
   const t = useTranslations()
-  
-  return (
-    <section className="py-12 overflow-hidden bg-white dark:bg-gray-900">
-      <div className="text-center mb-8">
-        <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300">
-          {t('landing.integrations.title')}
-        </span>
-      </div>
 
-      <div className="relative">
-        <div className="flex overflow-hidden">
-          <motion.div
-            className="flex gap-16 items-center"
-            animate={{ x: [0, -1000] }}
-            transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-          >
-            {[...integrations, ...integrations, ...integrations].map((integration, i) => (
-              <div key={i} className="flex items-center gap-2 flex-shrink-0">
-                <IntegrationLogo name={integration.name} />
-              </div>
-            ))}
-          </motion.div>
+  return (
+    <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 px-2">
+            {t('landing.integrations.title')}
+          </h2>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-2">
+            {t('landing.integrations.description')}
+          </p>
+        </div>
+
+        <div className="relative">
+          <div className="flex overflow-hidden">
+            <motion.div
+              className="flex gap-16 items-center"
+              animate={{ x: [0, -1000] }}
+              transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+            >
+              {[...integrations, ...integrations, ...integrations].map((integration, i) => (
+                <div key={i} className="flex items-center gap-2 flex-shrink-0">
+                  <IntegrationLogo name={integration.name} />
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
-    </section>
+    </section >
   )
 }
 

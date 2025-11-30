@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl"
 
 export function MorningBriefingSection() {
   const t = useTranslations()
-  
+
   return (
-    <section className="py-24 bg-[#0f0f0f] relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 bg-[#0f0f0f] relative overflow-hidden">
       {/* Grid background */}
       <div
         className="absolute inset-0 opacity-20"
@@ -20,15 +20,15 @@ export function MorningBriefingSection() {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Left content */}
-          <div className="space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-bold leading-tight">
+          <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight px-2 lg:px-0">
               <span className="text-white">{t('landing.morningBriefing.title')}</span>
               <br />
               <span className="text-amber-500">{t('landing.morningBriefing.titleHighlight')}</span>
             </h2>
-            <p className="text-gray-400 leading-relaxed max-w-lg">
+            <p className="text-sm sm:text-base text-gray-400 leading-relaxed max-w-lg mx-auto lg:mx-0 px-2 lg:px-0">
               {t('landing.morningBriefing.description')}
             </p>
           </div>

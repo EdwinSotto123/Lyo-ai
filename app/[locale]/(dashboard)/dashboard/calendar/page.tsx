@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ChevronLeft, ChevronRight, Plus, Video, MapPin, Clock } from "lucide-react"
+import { DashboardHeader } from "@/components/dashboard/header"
 
 const events = [
   {
@@ -44,30 +45,7 @@ export default function CalendarPage() {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
-      <header className="flex items-center justify-between border-b border-border px-6 py-4">
-        <div className="flex items-center gap-4">
-          <h1 className="text-lg font-semibold">Calendar</h1>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <span className="text-sm font-medium min-w-[140px] text-center">
-              {currentDate.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-            </span>
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-          <Button variant="outline" size="sm">
-            Today
-          </Button>
-        </div>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" />
-          New Event
-        </Button>
-      </header>
+      <DashboardHeader />
 
       <div className="flex-1 flex overflow-hidden">
         {/* Calendar Grid */}
@@ -79,7 +57,7 @@ export default function CalendarPage() {
               {weekDays.map((day, index) => (
                 <div key={day} className="p-4 text-center border-l border-border">
                   <p className="text-xs text-muted-foreground">{day}</p>
-                  <p className={`text-lg font-semibold mt-1 ${index === 3 ? "text-accent" : ""}`}>{25 + index}</p>
+                  <p className={`text-sm font-semibold mt-1 ${index === 3 ? "text-accent" : ""}`}>{25 + index}</p>
                 </div>
               ))}
             </div>

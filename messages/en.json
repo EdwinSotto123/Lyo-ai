@@ -26,7 +26,7 @@
   "landing": {
     "hero": {
       "title": "One inbox, every conversation",
-      "subtitle": "Kinso brings together all your messages, emails, and contacts. It intelligently learns your goals, understands what matters most, and drafts replies that sound like you.",
+      "subtitle": "Lyo brings together all your messages, emails, and contacts. It intelligently learns your goals, understands what matters most, and drafts replies that sound like you.",
       "waitlist": "Join",
       "waitlistOthers": "others on the waitlist.",
       "joinNow": "Join now"
@@ -44,7 +44,7 @@
       "label": "UNIVERSAL SEARCH",
       "title": "Search across all your conversations.",
       "description1": "Find anything you've ever sent or received without knowing the exact words that were used.",
-      "description2": "Instead of crawling through multiple emails and messaging platforms, just ask Kinso's universal search bar."
+      "description2": "Instead of crawling through multiple emails and messaging platforms, just ask Lyo's universal search bar."
     },
     "contextualAssistant": {
       "label": "CONTEXTUAL ASSISTANT",
@@ -60,7 +60,7 @@
     "morningBriefing": {
       "title": "Start every day knowing",
       "titleHighlight": "what matters.",
-      "description": "Kinso serves you a morning briefing that summarises crucial messages and action items. Whether it's the urgent client request or time-sensitive approval, you'll see it in order of what needs your attention first.",
+      "description": "Lyo serves you a morning briefing that summarises crucial messages and action items. Whether it's the urgent client request or time-sensitive approval, you'll see it in order of what needs your attention first.",
       "goodMorning": "Good Morning,",
       "newConversations": "You've got",
       "new": "new",
@@ -68,7 +68,7 @@
       "active": "active",
       "conversations": "conversations.",
       "todaysBriefing": "Today's briefing",
-      "searchPlaceholder": "Start typing to ask or search Kinso"
+      "searchPlaceholder": "Start typing to ask or search Lyo"
     },
     "faq": {
       "label": "FAQs",

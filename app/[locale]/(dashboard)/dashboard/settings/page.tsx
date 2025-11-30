@@ -10,17 +10,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { User, CreditCard, Bell, Shield, Webhook, Upload } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
+import { DashboardHeader } from "@/components/dashboard/header"
 
 export default function SettingsPage() {
   const { user } = useAuth()
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
-      <header className="border-b border-border px-6 py-4">
-        <h1 className="text-lg font-semibold">Settings</h1>
-        <p className="text-sm text-muted-foreground">Manage your account and preferences</p>
-      </header>
+      <DashboardHeader />
 
       <div className="flex-1 overflow-y-auto p-6">
         <Tabs defaultValue="account" className="space-y-6">
