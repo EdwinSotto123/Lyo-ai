@@ -100,9 +100,14 @@ export default function IntegrationsPage() {
 
   const checkAuthStatus = async () => {
     try {
+      console.log("Checking auth status...")
       const status = await getAuthStatus()
-      if (status.authorized) {
+      console.log("Auth status result:", status)
+      
+      if (status && status.authorized) {
         updateGoogleIntegrationsStatus(true)
+      } else {
+        console.log("Not authorized or status check failed")
       }
     } catch (error) {
       console.error("Error checking auth status:", error)
@@ -243,7 +248,7 @@ export default function IntegrationsPage() {
                     <integration.icon className={`h-6 w-6 ${integration.color}`} />
                   </div>
                   {integration.connected ? (
-                    <Badge className="bg-green-400/10 text-green-400 hover:bg-green-400/20">
+                    <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-green-200">
                       <Check className="h-3 w-3 mr-1" />
                       Connected
                     </Badge>

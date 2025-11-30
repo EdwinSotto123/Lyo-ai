@@ -58,9 +58,9 @@ import {
 } from "@/components/ai-elements/sources";
 import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
 import type { ToolUIPart } from "ai";
-import { CheckIcon, GlobeIcon, MicIcon } from "lucide-react";
+import { CheckIcon, GlobeIcon, MicIcon, Loader2, Sparkles } from "lucide-react";
 import { nanoid } from "nanoid";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { toast } from "sonner";
 
 type MessageType = {
@@ -290,14 +290,14 @@ const models = [
 ];
 
 const suggestions = [
-  "What are the latest trends in AI?",
-  "How does machine learning work?",
-  "Explain quantum computing",
-  "Best practices for React development",
-  "Tell me about TypeScript benefits",
-  "How to optimize database queries?",
-  "What is the difference between SQL and NoSQL?",
-  "Explain cloud computing basics",
+  "Resumen de mis correos no leídos",
+  "¿Tengo reuniones hoy?",
+  "Agenda una reunión con el equipo mañana a las 10 AM",
+  "Busca correos de 'Factura' en el último mes",
+  "Envía un mensaje de WhatsApp a Juan",
+  "¿Quién me escribió en LinkedIn?",
+  "Crea un evento en Calendar para revisar el proyecto",
+  "Redacta un correo de seguimiento para el cliente",
 ];
 
 // Mock responses removed
@@ -315,7 +315,7 @@ export default function AgentPage() {
     {
       key: nanoid(),
       from: "assistant",
-      versions: [{ id: nanoid(), content: "Hello! I am LYO Agent. How can I help you today?" }],
+      versions: [{ id: nanoid(), content: "Hello! I am LYO Agent. I can help you manage your emails, calendar, and more. How can I help you today?" }],
     }
   ]);
   const [streamingMessageId, setStreamingMessageId] = useState<string | null>(
@@ -478,7 +478,24 @@ export default function AgentPage() {
                         </Reasoning>
                       )}
                       <MessageContent>
-                        <MessageResponse>{version.content}</MessageResponse>
+                        {version.content ? (
+                          <MessageResponse>{version.content}</MessageResponse>
+                        ) : (
+                          (status === "streaming" || status === "submitted") &&
+                          message.key === streamingMessageId ? (
+                            <div className="flex flex-col gap-2 py-2">
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Sparkles className="h-4 w-4 animate-pulse text-purple-500" />
+                                <span className="text-sm font-medium">Lyo is thinking...</span>
+                              </div>
+                              <div className="flex space-x-1 pl-6">
+                                <div className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-500/50 [animation-delay:-0.3s]"></div>
+                                <div className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-500/50 [animation-delay:-0.15s]"></div>
+                                <div className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-500/50"></div>
+                              </div>
+                            </div>
+                          ) : null
+                        )}
                       </MessageContent>
                     </div>
                   </Message>

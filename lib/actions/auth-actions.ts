@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers"
 
+// Use localhost for server-to-server communication to avoid DNS/SSL issues with tunnels
 const BACKEND_URL = "http://127.0.0.1:5000"
 
 export async function getAuthStatus() {
@@ -42,14 +43,9 @@ export async function getAuthStatus() {
 
 export async function authorizeServices() {
     try {
-        const response = await fetch(`${BACKEND_URL}/auth/authorize`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                services: ["calendar", "gmail", "meet"],
-            }),
+        // Use the GET endpoint available in server.py
+        const response = await fetch(`${BACKEND_URL}/auth/login/google`, {
+            method: "GET",
             cache: "no-store",
         })
 
@@ -58,7 +54,8 @@ export async function authorizeServices() {
         }
 
         const data = await response.json()
-        return { url: data.auth_url }
+        // server.py returns { url: "..." }
+        return { url: data.url }
     } catch (error) {
         console.error("Error initiating authorization:", error)
         throw error

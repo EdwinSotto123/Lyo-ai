@@ -20,7 +20,7 @@ import {
     Users,
     LogOut,
 } from "lucide-react"
-import { AIListeningModal } from "./ai-listening-modal"
+import { AIVoiceSelector } from "./ai-voice-selector"
 import { useAuth } from "@/lib/auth-context"
 
 export function MobileBottomNav() {
@@ -167,7 +167,7 @@ export function MobileBottomNav() {
                 </div>
             </nav>
 
-            <AIListeningModal open={aiModalOpen} onOpenChange={setAIModalOpen} />
+            <AIVoiceSelector open={aiModalOpen} onOpenChange={setAIModalOpen} />
         </>
     )
 }
