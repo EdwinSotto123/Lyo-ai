@@ -20,6 +20,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DashboardHeader } from "@/components/dashboard/header"
 
 const contacts = [
   {
@@ -110,17 +111,7 @@ export default function ContactsPage() {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
-      <header className="flex items-center justify-between border-b border-border px-6 py-2">
-        <div>
-          <h1 className="text-lg font-semibold">Contacts</h1>
-          <p className="text-sm text-muted-foreground">{contacts.length} total contacts</p>
-        </div>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" />
-          Add Contact
-        </Button>
-      </header>
+      <DashboardHeader />
 
       {/* Filters */}
       <div className="flex items-center gap-4 border-b border-border px-6 py-4">

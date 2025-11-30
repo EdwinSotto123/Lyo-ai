@@ -5,14 +5,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import {
   LayoutDashboard,
   Inbox,
@@ -24,11 +16,7 @@ import {
   Search,
   ChevronLeft,
   ChevronRight,
-  LogOut,
-  User,
-  CreditCard,
 } from "lucide-react"
-import { useAuth } from "@/lib/auth-context"
 
 interface AppSidebarProps {
   onCommandOpen: () => void
@@ -48,18 +36,6 @@ const navigation = [
 export function AppSidebar({ onCommandOpen, onNavigate }: AppSidebarProps) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
-  const { user, signOut } = useAuth()
-
-  // Get user initials for fallback
-  const getUserInitials = () => {
-    if (!user?.name) return "U"
-    return user.name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2)
-  }
 
   return (
     <aside
@@ -72,7 +48,7 @@ export function AppSidebar({ onCommandOpen, onNavigate }: AppSidebarProps) {
       <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4">
         {!collapsed && (
           <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-orange-400 to-teal-400">
               <span className="text-lg font-bold text-primary-foreground">L</span>
             </div>
             <span className="text-lg font-semibold">LYO</span>
@@ -148,54 +124,6 @@ export function AppSidebar({ onCommandOpen, onNavigate }: AppSidebarProps) {
             </>
           )}
         </Button>
-      </div>
-
-      {/* User */}
-      <div className="border-t border-sidebar-border p-3">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className={cn("w-full justify-start gap-3 px-2", collapsed && "justify-center")}>
-              <Avatar className="h-8 w-8">
-                <AvatarImage src={user?.avatar_url || ""} referrerPolicy="no-referrer" />
-                <AvatarFallback>{getUserInitials()}</AvatarFallback>
-              </Avatar>
-              {!collapsed && (
-                <div className="flex-1 text-left">
-                  <p className="text-sm font-medium">{user?.name || "User"}</p>
-                  <p className="text-xs text-muted-foreground">{user?.email || ""}</p>
-                </div>
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CreditCard className="mr-2 h-4 w-4" />
-              Billing
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="text-destructive"
-              onClick={async () => {
-                try {
-                  await signOut()
-                } catch (error) {
-                  console.error("Error signing out:", error)
-                }
-              }}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
     </aside>
   )
