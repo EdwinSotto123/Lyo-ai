@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Mic, Send, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import Image from "next/image"
 
 export default function AgentsPage() {
     const [input, setInput] = useState("")
@@ -38,7 +39,15 @@ export default function AgentsPage() {
             <header className="flex h-16 items-center justify-between border-b border-border px-4">
                 <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-teal-400">
-                        <div className="h-6 w-6 rounded-full bg-gradient-to-br from-orange-400 to-teal-400 animate-pulse" />
+                        <div className="h-6 w-6 rounded-full bg-gradient-to-br from-orange-400 to-teal-400 animate-pulse" >
+                            <Image
+                                src="/logo-lyo.webp"   // 👉 ruta de tu imagen
+                                alt="Lyo"
+                                width={50}             // 👉 ajusta tamaño
+                                height={35}
+                                className="object-contain"
+                            />
+                        </div>
                     </div>
                     <div>
                         <h1 className="text-lg font-semibold">AI Agent</h1>
@@ -56,8 +65,8 @@ export default function AgentsPage() {
                     >
                         <div
                             className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.role === "user"
-                                    ? "bg-gradient-to-br from-orange-400 to-teal-400 text-white"
-                                    : "bg-muted text-foreground"
+                                ? "bg-gradient-to-br from-orange-400 to-teal-400 text-white"
+                                : "bg-muted text-foreground"
                                 }`}
                         >
                             <p className="text-sm">{message.content}</p>

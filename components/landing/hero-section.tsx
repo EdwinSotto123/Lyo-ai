@@ -28,7 +28,7 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Left content */}
           <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-balance">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight break-words px-2">
               <span className="text-gray-900 dark:text-white">{t('landing.hero.title')}</span>
             </h1>
             <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-lg leading-relaxed mx-auto lg:mx-0">
