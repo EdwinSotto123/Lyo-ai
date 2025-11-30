@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl"
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const t = useTranslations()
-  
+
   const faqs = [
     {
       question: t('landing.faq.questions.q1.question'),
@@ -37,7 +37,7 @@ export function FaqSection() {
   ]
 
   return (
-    <section id="faqs" className="py-24 bg-[#0f0f0f] relative overflow-hidden">
+    <section id="faqs" className="py-16 sm:py-20 md:py-24 bg-[#0f0f0f] relative overflow-hidden">
       {/* Grid background */}
       <div
         className="absolute inset-0 opacity-20"
@@ -50,14 +50,14 @@ export function FaqSection() {
 
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section label */}
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-700 text-sm text-gray-400">
+        <div className="text-center mb-8 sm:mb-12">
+          <span className="inline-flex items-center px-3 sm:px-4 py-1.5 rounded-full border border-gray-700 text-xs sm:text-sm text-gray-400">
             {t('landing.faq.label')}
           </span>
         </div>
 
-        <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-4">{t('landing.faq.title')}</h2>
-        <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center mb-3 sm:mb-4 px-2">{t('landing.faq.title')}</h2>
+        <p className="text-sm sm:text-base text-gray-400 text-center mb-8 sm:mb-12 max-w-2xl mx-auto px-2">
           {t('landing.faq.description')}
         </p>
 
@@ -73,10 +73,10 @@ export function FaqSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-800/50 transition-colors"
+                className="w-full flex items-center justify-between p-4 sm:p-6 text-left hover:bg-gray-800/50 transition-colors"
               >
-                <span className="text-white font-medium pr-4">{faq.question}</span>
-                <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-medium pr-3 sm:pr-4 text-sm sm:text-base">{faq.question}</span>
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
                   {openIndex === i ? <Minus className="w-4 h-4 text-white" /> : <Plus className="w-4 h-4 text-white" />}
                 </div>
               </button>
@@ -89,7 +89,7 @@ export function FaqSection() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <p className="px-6 pb-6 text-gray-400">{faq.answer}</p>
+                    <p className="px-4 sm:px-6 pb-4 sm:pb-6 text-sm sm:text-base text-gray-400">{faq.answer}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
