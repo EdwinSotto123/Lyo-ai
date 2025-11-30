@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -17,9 +18,11 @@ import {
   AlertCircle,
   ExternalLink,
   Settings,
+  Loader2,
 } from "lucide-react"
+import { getAuthStatus, authorizeServices, disconnectServices, getUnipileStatus, getUnipileAuthLink, disconnectUnipileAccount } from "@/lib/actions/auth-actions"
 
-const integrations = [
+const initialIntegrations = [
   {
     id: "whatsapp",
     name: "WhatsApp Business",
@@ -27,16 +30,6 @@ const integrations = [
     icon: MessageCircle,
     color: "text-green-400",
     bgColor: "bg-green-400/10",
-    connected: false,
-    status: "Not connected",
-  },
-  {
-    id: "gmail",
-    name: "Gmail",
-    description: "Sync your Gmail inbox to manage emails through LYO",
-    icon: Mail,
-    color: "text-red-400",
-    bgColor: "bg-red-400/10",
     connected: false,
     status: "Not connected",
   },
@@ -51,12 +44,12 @@ const integrations = [
     status: "Not connected",
   },
   {
-    id: "instagram",
-    name: "Instagram",
-    description: "Connect your Instagram Business account for DM management",
-    icon: Instagram,
-    color: "text-pink-400",
-    bgColor: "bg-pink-400/10",
+    id: "gmail",
+    name: "Gmail",
+    description: "Sync your Gmail inbox to manage emails through LYO",
+    icon: Mail,
+    color: "text-red-400",
+    bgColor: "bg-red-400/10",
     connected: false,
     status: "Not connected",
   },
@@ -71,28 +64,164 @@ const integrations = [
     status: "Not connected",
   },
   {
-    id: "supabase",
-    name: "Supabase",
-    description: "Vector database for AI memory and embeddings storage",
-    icon: Database,
-    color: "text-emerald-400",
-    bgColor: "bg-emerald-400/10",
-    connected: false,
-    status: "Not connected",
-  },
-  {
-    id: "huggingface",
-    name: "Hugging Face",
-    description: "AI model provider for embeddings and language processing",
-    icon: Brain,
-    color: "text-yellow-500",
-    bgColor: "bg-yellow-500/10",
+    id: "meet",
+    name: "Google Meet",
+    description: "Create and manage Google Meet conferences",
+    icon: CalendarDays, // Using Calendar icon as placeholder for Meet
+    color: "text-blue-500",
+    bgColor: "bg-blue-500/10",
     connected: false,
     status: "Not connected",
   },
 ]
 
 export default function IntegrationsPage() {
+  const [integrations, setIntegrations] = useState(initialIntegrations)
+  const [loading, setLoading] = useState(true)
+  const [connecting, setConnecting] = useState<string | null>(null)
+  const [disconnecting, setDisconnecting] = useState<string | null>(null)
+
+  useEffect(() => {
+    checkAuthStatus()
+    checkUnipileStatus()
+  }, [])
+
+  useEffect(() => {
+    // Listen for Unipile auth success message
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === 'UNIPILE_AUTH_SUCCESS') {
+        console.log('✅ Unipile auth success received')
+        checkUnipileStatus()
+      }
+    }
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [])
+
+  const checkAuthStatus = async () => {
+    try {
+      const status = await getAuthStatus()
+      if (status.authorized) {
+        updateGoogleIntegrationsStatus(true)
+      }
+    } catch (error) {
+      console.error("Error checking auth status:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const checkUnipileStatus = async () => {
+    try {
+      const status = await getUnipileStatus()
+      updateUnipileIntegrationsStatus(status)
+    } catch (error) {
+      console.error("Error checking unipile status:", error)
+    }
+  }
+
+  const updateGoogleIntegrationsStatus = (authorized: boolean) => {
+    setIntegrations((prev) =>
+      prev.map((integration) => {
+        if (["gmail", "calendar", "meet"].includes(integration.id)) {
+          return {
+            ...integration,
+            connected: authorized,
+            status: authorized ? "Connected" : "Not connected",
+          }
+        }
+        return integration
+      })
+    )
+  }
+
+  const updateUnipileIntegrationsStatus = (statusData: any) => {
+    const providers = statusData.providers || {}
+
+    setIntegrations((prev) =>
+      prev.map((integration) => {
+        const providerKey = integration.id.toUpperCase()
+        if (["WHATSAPP", "LINKEDIN"].includes(providerKey)) {
+          const accounts = providers[providerKey] || []
+          const isConnected = accounts.length > 0
+          // Store the first account ID for disconnection (simplification)
+          const accountId = isConnected ? accounts[0].id : null
+
+          return {
+            ...integration,
+            connected: isConnected,
+            status: isConnected ? "Connected" : "Not connected",
+            accountId: accountId // Store account ID
+          }
+        }
+        return integration
+      })
+    )
+  }
+
+  const handleConnect = async (serviceId: string) => {
+    setConnecting(serviceId)
+    try {
+      if (["gmail", "calendar", "meet"].includes(serviceId)) {
+        const { url } = await authorizeServices()
+        if (url) {
+          window.location.href = url
+        }
+      } else if (["whatsapp", "linkedin"].includes(serviceId)) {
+        const { url } = await getUnipileAuthLink([serviceId.toUpperCase()])
+        if (url) {
+          const popup = window.open(
+            url,
+            'unipile_auth',
+            'width=600,height=700,scrollbars=yes,resizable=yes'
+          )
+
+          // Check if popup closed
+          const checkInterval = setInterval(async () => {
+            if (popup?.closed) {
+              clearInterval(checkInterval)
+              await checkUnipileStatus()
+              setConnecting(null)
+            }
+          }, 1000)
+        } else {
+          setConnecting(null)
+        }
+      }
+    } catch (error) {
+      console.error("Error connecting service:", error)
+      setConnecting(null)
+    }
+  }
+
+  const handleDisconnect = async (serviceId: string) => {
+    setDisconnecting(serviceId)
+    try {
+      if (["gmail", "calendar", "meet"].includes(serviceId)) {
+        const result = await disconnectServices()
+        if (result.success) {
+          updateGoogleIntegrationsStatus(false)
+        }
+      } else if (["whatsapp", "linkedin"].includes(serviceId)) {
+        // Find the integration to get the account ID
+        const integration = integrations.find(i => i.id === serviceId)
+        // @ts-ignore - accountId is added dynamically
+        const accountId = integration?.accountId
+
+        if (accountId) {
+          const result = await disconnectUnipileAccount(accountId)
+          if (result.success || result.message === 'Account disconnected') {
+            await checkUnipileStatus()
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error disconnecting service:", error)
+    } finally {
+      setDisconnecting(null)
+    }
+  }
+
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
@@ -137,14 +266,31 @@ export default function IntegrationsPage() {
                         <Settings className="h-4 w-4" />
                         Configure
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDisconnect(integration.id)}
+                        disabled={!!disconnecting}
+                      >
+                        {disconnecting === integration.id ? (
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                        ) : null}
                         Disconnect
                       </Button>
                     </>
                   ) : (
-                    <Button size="sm" className="w-full gap-2">
-                      <ExternalLink className="h-4 w-4" />
-                      Connect
+                    <Button
+                      size="sm"
+                      className="w-full gap-2"
+                      onClick={() => handleConnect(integration.id)}
+                      disabled={!!connecting}
+                    >
+                      {connecting === integration.id ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <ExternalLink className="h-4 w-4" />
+                      )}
+                      {connecting === integration.id ? "Connecting..." : "Connect"}
                     </Button>
                   )}
                 </div>
