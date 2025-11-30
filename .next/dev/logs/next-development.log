@@ -1,8 +1,8 @@
-[00:00:01.963] Server  WARN     ⚠ Minimum recommended TypeScript version is v5.1.0, older versions can potentially be incompatible with Next.js. Detected: 5.0.2
-[00:00:01.992] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:02.296] Server  LOG      ✓ Ready in 1773ms
-[00:00:07.000] Server  LOG      ○ Compiling /[locale] ...
-[00:00:10.472] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+[00:00:01.373] Server  WARN     ⚠ Minimum recommended TypeScript version is v5.1.0, older versions can potentially be incompatible with Next.js. Detected: 5.0.2
+[00:00:01.403] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.603] Server  LOG      ✓ Ready in 1190ms
+[00:00:07.463] Server  LOG      ○ Compiling /[locale] ...
+[00:00:12.190] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -21,10 +21,10 @@ https://react.dev/link/hydration-mismatch
           <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
             <LoadingBoundary name="/" loading={null}>
               <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
-                <HTTPAccessFallbackErrorBoundary pathname="/es" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
                   <RedirectBoundary>
                     <RedirectErrorBoundary router={{...}}>
-                      <InnerLayoutRouter url="/es" tree={[...]} params={{locale:"es"}} cacheNode={{lazyData:null, ...}} ...>
+                      <InnerLayoutRouter url="/" tree={[...]} params={{locale:"en"}} cacheNode={{lazyData:null, ...}} ...>
                         <SegmentViewNode type="layout" pagePath="[locale]/l...">
                           <SegmentTrieNode>
                           <link>
@@ -32,61 +32,38 @@ https://react.dev/link/hydration-mismatch
                           <script>
                           <script>
                           <LocaleLayout>
-                            <html lang="es" suppressHydrationWarning={true}>
+                            <html lang="en" suppressHydrationWarning={true}>
                               <body
                                 className="inter_5972bc34-module__OU16Qa__className antialiased"
--                               __processed_2b9d0cc9-bd25-45fd-85b4-b1103ef02265__="true"
+-                               __processed_18a54a56-7acb-4203-b83d-8dd7a42c58ac__="true"
 -                               bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2Zj..."
                               >
                                 ...
-                                  <Home>
-                                    <main className="min-h-screen">
-                                      ...
-                                        <Slot type="button" id="radix-_R_6..." aria-haspopup="menu" aria-expanded={false} ...>
-                                          <SlotClone type="button" id="radix-_R_6..." aria-haspopup="menu" ...>
-                                            <Button variant="ghost" size="sm" className="gap-2" type="button" ...>
-                                              <button
-                                                data-slot="dropdown-menu-trigger"
-                                                className={"inline-flex items-center justify-center whitespace-nowrap..."}
-                                                type="button"
-+                                               id="radix-_R_6clrj9etb_"
--                                               id="radix-_R_34clrj9etb_"
-                                                aria-haspopup="menu"
-                                                aria-expanded={false}
-                                                aria-controls={undefined}
-                                                data-state="closed"
-                                                data-disabled={undefined}
-                                                disabled={false}
-                                                onPointerDown={function handleEvent}
-                                                onKeyDown={function handleEvent}
-                                                ref={function}
-                                              >
-                                      ...
-                                        <div className="relative m...">
-                                          <div>
-                                          <div className="text-cente...">
-                                            <p className="text-lg te...">
-                                              <span className="text-orange-500 font-semibold">
-+                                               12.773
--                                               12,773
-                                              ...
-                                            ...
+                                  <div className="relative m...">
+                                    <div>
+                                    <div className="text-cente...">
+                                      <p className="text-lg te...">
+                                        <span className="text-orange-500 dark:text-orange-400 font-semibold">
++                                         12.773
+-                                         12,773
+                                        ...
                                       ...
                                 ...
                       ...
           ...
 
-[00:00:10.472] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:10.472] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es","route":"/[locale]"}
-[00:00:10.472] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es","route":"/[locale]"}
-[00:00:10.472] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764467783981}
-[00:00:10.473] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764467783981}
-[00:01:51.096] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764467885247}
-[00:01:51.097] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764467885252}
-[00:01:54.315] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764467888469}
-[00:01:54.315] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764467888471}
-[00:02:19.458] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:20.464] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+[00:00:12.313] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:12.314] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:12.314] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:12.314] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472513587}
+[00:00:12.314] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472513587}
+[00:00:19.852] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472521099}
+[00:00:19.852] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472521104}
+[00:00:30.947] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/login color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/login","o":"http://localhost:3000/es/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472532209}
+[00:00:34.470] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/dashboard color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard","o":"http://localhost:3000/es/dashboard","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472535641}
+[00:01:15.880] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/dashboard/contacts color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard/contacts","o":"http://localhost:3000/es/dashboard/contacts","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472577096}
+[00:01:23.824] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:24.369] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -117,7 +94,7 @@ https://react.dev/link/hydration-mismatch
                             <div>
                             <div className="text-cente...">
                               <p className="text-lg te...">
-                                <span className="text-orange-500 font-semibold">
+                                <span className="text-orange-500 dark:text-orange-400 font-semibold">
 +                                 12.773
 -                                 12,773
                                 ...
@@ -126,101 +103,9 @@ https://react.dev/link/hydration-mismatch
                 ...
               ...
 
-[00:02:20.464] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:02:20.464] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es","route":"/[locale]"}
-[00:02:20.464] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es","route":"/[locale]"}
-[00:02:20.464] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764467913948}
-[00:02:20.464] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764467913949}
-[00:04:37.378] Server  LOG      ✓ Compiled in 345ms
-[00:05:03.678] Server  LOG      ✓ Compiled in 228ms
-[00:05:11.588] Server  LOG      ✓ Compiled in 227ms
-[00:05:15.007] Server  LOG      ✓ Compiled in 197ms
-[00:05:18.730] Server  LOG      ✓ Compiled in 187ms
-[00:05:25.137] Server  LOG      ✓ Compiled in 181ms
-[00:05:36.019] Server  LOG      ✓ Compiled in 173ms
-[00:05:43.307] Server  LOG      ✓ Compiled in 190ms
-[00:05:46.552] Server  LOG      ✓ Compiled in 187ms
-[00:05:52.673] Server  LOG      ✓ Compiled in 196ms
-[00:05:57.330] Server  LOG      ✓ Compiled in 185ms
-[00:06:05.719] Server  LOG      ✓ Compiled in 205ms
-[00:06:13.143] Server  LOG      ✓ Compiled in 217ms
-[00:06:18.703] Server  LOG      ✓ Compiled in 127ms
-[00:06:25.804] Server  LOG      ✓ Compiled in 184ms
-[00:06:33.500] Server  LOG      ✓ Compiled in 191ms
-[00:06:47.869] Server  LOG      ✓ Compiled in 231ms
-[00:06:48.567] Server  LOG      ✓ Compiled in 175ms
-[00:06:51.372] Server  LOG      ✓ Compiled in 217ms
-[00:07:10.782] Server  LOG      ✓ Compiled in 157ms
-[00:07:18.057] Server  LOG      ✓ Compiled in 142ms
-[00:07:20.597] Server  LOG      ✓ Compiled in 372ms
-[00:07:37.795] Server  LOG      ✓ Compiled in 139ms
-[00:07:54.085] Server  LOG      ✓ Compiled in 158ms
-[00:07:57.368] Server  LOG      ✓ Compiled in 189ms
-[00:08:52.394] Server  LOG      ✓ Compiled in 157ms
-[00:12:20.449] Server  LOG      ✓ Compiled in 141ms
-[00:12:31.260] Server  LOG      ✓ Compiled in 184ms
-[00:12:41.979] Server  LOG      ✓ Compiled in 155ms
-[00:12:56.719] Server  LOG      ✓ Compiled in 156ms
-[00:13:34.852] Server  LOG      ✓ Compiled in 137ms
-[00:13:49.374] Server  LOG      ✓ Compiled in 146ms
-[00:13:53.200] Server  LOG      ✓ Compiled in 133ms
-[00:14:01.366] Server  LOG      ✓ Compiled in 137ms
-[00:14:05.531] Server  LOG      ✓ Compiled in 149ms
-[00:14:17.691] Server  LOG      ✓ Compiled in 136ms
-[00:14:38.573] Server  LOG      ✓ Compiled in 171ms
-[00:15:24.183] Server  LOG      ✓ Compiled in 190ms
-[00:15:29.024] Server  LOG      ✓ Compiled in 187ms
-[00:15:35.432] Server  LOG      ✓ Compiled in 135ms
-[00:15:39.930] Server  LOG      ✓ Compiled in 149ms
-[00:15:44.897] Server  LOG      ✓ Compiled in 137ms
-[00:15:51.130] Server  LOG      ✓ Compiled in 136ms
-[00:15:57.205] Server  LOG      ✓ Compiled in 153ms
-[00:16:01.677] Server  LOG      ✓ Compiled in 203ms
-[00:16:10.044] Server  LOG      ✓ Compiled in 147ms
-[00:16:16.319] Server  LOG      ✓ Compiled in 143ms
-[00:16:21.490] Server  LOG      ✓ Compiled in 132ms
-[00:16:25.768] Server  LOG      ✓ Compiled in 128ms
-[00:16:54.557] Server  LOG      ✓ Compiled in 149ms
-[00:17:08.778] Server  LOG      ✓ Compiled in 139ms
-[00:17:14.654] Server  LOG      ✓ Compiled in 136ms
-[00:17:29.618] Server  LOG      ✓ Compiled in 160ms
-[00:17:35.542] Server  LOG      ✓ Compiled in 128ms
-[00:17:56.522] Server  LOG      ✓ Compiled in 127ms
-[00:18:00.010] Server  LOG      ✓ Compiled in 130ms
-[00:18:54.283] Server  LOG      ✓ Compiled in 124ms
-[00:19:09.378] Server  LOG      ✓ Compiled in 160ms
-[00:19:19.902] Server  LOG      ✓ Compiled in 131ms
-[00:19:37.410] Server  LOG      ✓ Compiled in 135ms
-[00:20:02.280] Server  LOG      ✓ Compiled in 140ms
-[00:20:07.693] Server  LOG      ✓ Compiled in 165ms
-[00:21:23.207] Server  LOG      ✓ Compiled in 145ms
-[00:21:25.934] Server  LOG      ✓ Compiled in 139ms
-[00:21:37.783] Server  LOG      ✓ Compiled in 273ms
-[00:21:56.629] Server  LOG      ✓ Compiled in 139ms
-[00:22:20.945] Server  LOG      ✓ Compiled in 146ms
-[00:22:26.493] Server  LOG      ✓ Compiled in 208ms
-[00:23:24.639] Server  LOG      ✓ Compiled in 160ms
-[00:23:29.239] Server  LOG      ✓ Compiled in 138ms
-[00:23:45.945] Server  LOG      ✓ Compiled in 159ms
-[00:23:50.912] Server  LOG      ✓ Compiled in 140ms
-[00:24:26.030] Server  LOG      ✓ Compiled in 127ms
-[00:24:31.329] Server  LOG      ✓ Compiled in 123ms
-[00:24:33.197] Server  LOG      ✓ Compiled in 132ms
-[00:24:47.066] Server  LOG      ✓ Compiled in 124ms
-[00:24:51.485] Server  LOG      ✓ Compiled in 125ms
-[00:25:13.319] Server  LOG      ✓ Compiled in 121ms
-[00:25:20.806] Server  LOG      ✓ Compiled in 121ms
-[00:25:23.644] Server  LOG      ✓ Compiled in 123ms
-[00:25:32.963] Server  LOG      ✓ Compiled in 125ms
-[00:25:37.901] Server  LOG      ✓ Compiled in 123ms
-[00:28:29.944] Server  LOG      ✓ Compiled in 293ms
-[00:28:35.941] Server  LOG      ✓ Compiled in 249ms
-[00:28:51.337] Server  LOG      ✓ Compiled in 258ms
-[00:29:04.243] Server  LOG      ✓ Compiled in 252ms
-[00:29:08.019] Server  LOG      ✓ Compiled in 159ms
-[00:29:24.143] Server  LOG      ✓ Compiled in 279ms
-[00:29:30.736] Server  LOG      ✓ Compiled in 162ms
-[00:29:41.045] Server  LOG      ✓ Compiled in 299ms
-[00:29:48.693] Server  LOG      ✓ Compiled in 189ms
-[00:29:50.606] Server  LOG      ✓ Compiled in 171ms
-[00:29:59.630] Server  LOG      ✓ Compiled in 183ms
+[00:01:24.369] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:01:24.369] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es","route":"/[locale]"}
+[00:01:24.369] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/es","route":"/[locale]"}
+[00:01:24.369] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472585410}
+[00:01:24.369] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/es","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472585411}
+[00:01:44.656] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/es/dashboard/contacts/sarah-chen color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard/contacts/[id]","o":"http://localhost:3000/es/dashboard/contacts/sarah-chen","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764472605918}

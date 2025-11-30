@@ -1,3 +1,7 @@
 {
+  "/[locale]/(dashboard)/dashboard/contacts/[id]/page": "app/[locale]/(dashboard)/dashboard/contacts/[id]/page.js",
+  "/[locale]/(dashboard)/dashboard/contacts/page": "app/[locale]/(dashboard)/dashboard/contacts/page.js",
+  "/[locale]/(dashboard)/dashboard/page": "app/[locale]/(dashboard)/dashboard/page.js",
+  "/[locale]/login/page": "app/[locale]/login/page.js",
   "/[locale]/page": "app/[locale]/page.js"
 }

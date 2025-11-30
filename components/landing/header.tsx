@@ -6,6 +6,7 @@ import { Menu, X, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { KinsoLogo } from "@/components/kinso-logo"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { ThemeSwitch } from "@/components/theme-switch"
 import { useTranslations } from "next-intl"
 
 export function Header() {
@@ -39,6 +40,7 @@ export function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeSwitch />
             <LanguageSwitcher />
             <Button variant="ghost" className="text-sm text-gray-700 dark:text-gray-300" asChild>
               <Link href="/login">{t('nav.login')}</Link>
@@ -71,7 +73,8 @@ export function Header() {
               {t('nav.faqs')}
             </Link>
             <div className="flex flex-col gap-2 pt-4 border-t border-gray-100 dark:border-gray-800">
-              <div className="flex justify-center mb-2">
+              <div className="flex justify-center gap-2 mb-2">
+                <ThemeSwitch />
                 <LanguageSwitcher />
               </div>
               <Button variant="ghost" className="w-full justify-center text-gray-700 dark:text-gray-300" asChild>
