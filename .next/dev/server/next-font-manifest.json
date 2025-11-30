@@ -1,27 +1,18 @@
 {
   "app": {
-    "[project]/app/(dashboard)/dashboard/agent/page": [
+    "[project]/app/[locale]/(dashboard)/dashboard/contacts/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/app/(dashboard)/dashboard/calendar/page": [
+    "[project]/app/[locale]/(dashboard)/dashboard/inbox/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/app/(dashboard)/dashboard/contacts/page": [
+    "[project]/app/[locale]/(dashboard)/dashboard/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/app/(dashboard)/dashboard/inbox/page": [
+    "[project]/app/[locale]/login/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/app/(dashboard)/dashboard/integrations/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/app/(dashboard)/dashboard/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/app/(dashboard)/dashboard/settings/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/app/_not-found/page": [
+    "[project]/app/[locale]/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ]
   },

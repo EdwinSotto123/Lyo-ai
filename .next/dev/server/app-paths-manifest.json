@@ -1,10 +1,7 @@
 {
-  "/(dashboard)/dashboard/agent/page": "app/(dashboard)/dashboard/agent/page.js",
-  "/(dashboard)/dashboard/calendar/page": "app/(dashboard)/dashboard/calendar/page.js",
-  "/(dashboard)/dashboard/contacts/page": "app/(dashboard)/dashboard/contacts/page.js",
-  "/(dashboard)/dashboard/inbox/page": "app/(dashboard)/dashboard/inbox/page.js",
-  "/(dashboard)/dashboard/integrations/page": "app/(dashboard)/dashboard/integrations/page.js",
-  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
-  "/(dashboard)/dashboard/settings/page": "app/(dashboard)/dashboard/settings/page.js",
-  "/_not-found/page": "app/_not-found/page.js"
+  "/[locale]/(dashboard)/dashboard/contacts/page": "app/[locale]/(dashboard)/dashboard/contacts/page.js",
+  "/[locale]/(dashboard)/dashboard/inbox/page": "app/[locale]/(dashboard)/dashboard/inbox/page.js",
+  "/[locale]/(dashboard)/dashboard/page": "app/[locale]/(dashboard)/dashboard/page.js",
+  "/[locale]/login/page": "app/[locale]/login/page.js",
+  "/[locale]/page": "app/[locale]/page.js"
 }
