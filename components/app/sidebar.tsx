@@ -154,7 +154,7 @@ export function AppSidebar({ onCommandOpen }: AppSidebarProps) {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className={cn("w-full justify-start gap-3 px-2", collapsed && "justify-center")}>
               <Avatar className="h-8 w-8">
-                <AvatarImage src={user?.avatar_url || ""} />
+                <AvatarImage src={user?.avatar_url || ""} referrerPolicy="no-referrer" />
                 <AvatarFallback>{getUserInitials()}</AvatarFallback>
               </Avatar>
               {!collapsed && (
