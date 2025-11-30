@@ -86,6 +86,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  // Handle Supabase redirect on root or other pages
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const hash = window.location.hash
+    if (hash && hash.includes("access_token")) {
+      // Check if we are already on the callback page to avoid infinite loop
+      if (!window.location.pathname.includes("/callback")) {
+        console.log("Detected auth hash, redirecting to callback...")
+
+        // Try to preserve locale if present
+        const pathSegments = window.location.pathname.split('/').filter(Boolean)
+        const currentLocale = pathSegments[0]
+
+        let targetPath = '/callback'
+        if (currentLocale && ['en', 'es'].includes(currentLocale)) {
+          targetPath = `/${currentLocale}/callback`
+        }
+
+        // Redirect to callback page with the hash
+        window.location.href = `${window.location.origin}${targetPath}${hash}`
+      }
+    }
+  }, [])
+
   // Check for existing session on mount
   useEffect(() => {
     const initializeAuth = async () => {
