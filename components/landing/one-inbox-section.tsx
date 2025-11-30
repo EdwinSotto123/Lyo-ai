@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import type { JSX } from "react"
+import { AnimatedGridPattern } from "@/components/animated/animated-grid-pattern"
 
 const apps = [
   { name: "Gmail", color: "#EA4335", glow: "rgba(234, 67, 53, 0.5)" },
@@ -15,14 +16,15 @@ const apps = [
 export function OneInboxSection() {
   return (
     <section className="py-24 bg-[#0f0f0f] relative overflow-hidden">
-      {/* Grid background */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                           linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
-          backgroundSize: "40px 40px",
-        }}
+      {/* Animated Grid background */}
+      <AnimatedGridPattern
+        width={40}
+        height={40}
+        numSquares={50}
+        maxOpacity={0.5}
+        duration={3}
+        repeatDelay={1}
+        className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white_40%,transparent_90%)] opacity-60"
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,7 +38,7 @@ export function OneInboxSection() {
               <span className="text-amber-500">one inbox.</span>
             </h2>
             <p className="text-gray-400 leading-relaxed max-w-lg">
-              Kinso integrates with Gmail, LinkedIn, Slack, WhatsApp & Instagram. More integrations coming soon.
+              Lyo integrates with Gmail, LinkedIn, Slack, WhatsApp & Instagram. More integrations coming soon.
             </p>
           </div>
 

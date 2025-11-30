@@ -63,10 +63,10 @@ export function HeroSection() {
               className="absolute bottom-0 left-0 lg:-left-4 z-20 w-[30%] max-w-[180px] shadow-2xl rounded-[2rem] overflow-hidden border-[6px] border-gray-900 bg-gray-900"
             >
               <Image
-                src="/cel1.png"
+                src="/fono.webp"
                 alt="Mobile Interface"
-                width={400}
-                height={800}
+                width={300}
+                height={600}
                 className="w-full h-auto object-cover"
               />
             </motion.div>

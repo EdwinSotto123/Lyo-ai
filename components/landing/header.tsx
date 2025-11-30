@@ -12,11 +12,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { KinsoLogo } from "@/components/kinso-logo"
+
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { ThemeSwitch } from "@/components/theme-switch"
 import { useTranslations } from "next-intl"
 import { useAuth } from "@/lib/auth-context"
+import Image from "next/image"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -41,8 +42,13 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2">
-              <KinsoLogo className="h-8 w-8" />
-              <span className="font-semibold text-lg text-gray-900 dark:text-white">Lyo</span>
+              <Image
+                src="/logo-lyo.webp"   // 👉 ruta de tu imagen
+                alt="Lyo"
+                width={50}             // 👉 ajusta tamaño
+                height={25}
+                className="object-contain"
+              />
             </Link>
 
             {/* Desktop Navigation */}
