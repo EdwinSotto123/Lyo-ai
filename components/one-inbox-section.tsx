@@ -2,14 +2,57 @@
 
 import { motion } from "framer-motion"
 import type { JSX } from "react"
+import { GlowingCard } from "@/components/glowing-card"
 
 const apps = [
-  { name: "Gmail", color: "#EA4335", glow: "rgba(234, 67, 53, 0.5)" },
-  { name: "WhatsApp", color: "#25D366", glow: "rgba(37, 211, 102, 0.5)" },
-  { name: "Instagram", color: "#E1306C", glow: "rgba(225, 48, 108, 0.5)" },
-  { name: "LinkedIn", color: "#0077B5", glow: "rgba(0, 119, 181, 0.5)" },
-  { name: "Slack", color: "#4A154B", glow: "rgba(74, 21, 75, 0.5)" },
-  { name: "Outlook", color: "#0078D4", glow: "rgba(0, 120, 212, 0.5)" },
+  {
+    name: "Gmail",
+    color: "#EA4335",
+    glow: "rgba(234, 67, 53, 0.5)",
+    backgroundColor: "#2d0a09",
+    borderColor: "rgba(234, 67, 53, 0.5)",
+    dotColor: "#EA4335"
+  },
+  {
+    name: "WhatsApp",
+    color: "#25D366",
+    glow: "rgba(37, 211, 102, 0.5)",
+    backgroundColor: "#0a2d14",
+    borderColor: "rgba(37, 211, 102, 0.5)",
+    dotColor: "#25D366"
+  },
+  {
+    name: "Instagram",
+    color: "#E1306C",
+    glow: "rgba(225, 48, 108, 0.5)",
+    backgroundColor: "#2d0a17",
+    borderColor: "rgba(225, 48, 108, 0.5)",
+    dotColor: "#E1306C"
+  },
+  {
+    name: "LinkedIn",
+    color: "#0077B5",
+    glow: "rgba(0, 119, 181, 0.5)",
+    backgroundColor: "#001929",
+    borderColor: "rgba(0, 119, 181, 0.5)",
+    dotColor: "#0077B5"
+  },
+  {
+    name: "Slack",
+    color: "#4A154B",
+    glow: "rgba(74, 21, 75, 0.5)",
+    backgroundColor: "#1a0a1b",
+    borderColor: "rgba(74, 21, 75, 0.5)",
+    dotColor: "#4A154B"
+  },
+  {
+    name: "Outlook",
+    color: "#0078D4",
+    glow: "rgba(0, 120, 212, 0.5)",
+    backgroundColor: "#00192d",
+    borderColor: "rgba(0, 120, 212, 0.5)",
+    dotColor: "#0078D4"
+  },
 ]
 
 export function OneInboxSection() {
@@ -36,7 +79,7 @@ export function OneInboxSection() {
               <span className="text-amber-500">one inbox.</span>
             </h2>
             <p className="text-gray-400 leading-relaxed max-w-lg">
-              Kinso integrates with Gmail, LinkedIn, Slack, WhatsApp & Instagram. More integrations coming soon.
+              Lyo integrates with Gmail, LinkedIn, Slack, WhatsApp & Instagram. More integrations coming soon.
             </p>
           </div>
 
@@ -61,12 +104,15 @@ export function OneInboxSection() {
                   className="absolute"
                   style={positions[i]}
                 >
-                  <div
-                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#1a1a1a] border border-gray-800 flex items-center justify-center"
-                    style={{ boxShadow: `0 0 40px ${app.glow}` }}
+                  <GlowingCard
+                    backgroundColor={app.backgroundColor}
+                    borderColor={app.borderColor}
+                    glowColor={app.glow}
+                    dotColor={app.dotColor}
+                    className="p-4 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center"
                   >
                     <AppIcon name={app.name} />
-                  </div>
+                  </GlowingCard>
                 </motion.div>
               )
             })}

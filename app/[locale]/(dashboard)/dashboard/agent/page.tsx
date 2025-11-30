@@ -1,5 +1,7 @@
 "use client";
 
+import { DashboardHeader } from "@/components/dashboard/header";
+import { MobileNavbar } from "@/components/app/mobile-navbar";
 import {
   MessageBranch,
   MessageBranchContent,
@@ -308,6 +310,7 @@ export default function AgentPage() {
   const [text, setText] = useState<string>("");
   const [useWebSearch, setUseWebSearch] = useState<boolean>(false);
   const [useMicrophone, setUseMicrophone] = useState<boolean>(false);
+  const [commandOpen, setCommandOpen] = useState(false);
   const [status, setStatus] = useState<
     "submitted" | "streaming" | "ready" | "error"
   >("ready");
@@ -443,9 +446,21 @@ export default function AgentPage() {
   };
 
   return (
-    <div className="relative flex size-full flex-col divide-y overflow-hidden">
-      <Conversation>
-        <ConversationContent>
+    <div className="flex flex-col h-full w-full overflow-hidden">
+      {/* Mobile Header - Solo visible en móviles */}
+      <div className="md:hidden">
+        <MobileNavbar onCommandOpen={() => setCommandOpen(true)} />
+      </div>
+
+      {/* Desktop Header - Solo visible en desktop */}
+      <div className="hidden md:block">
+        <DashboardHeader />
+      </div>
+
+      {/* Contenido Principal */}
+      <div className="relative flex flex-1 flex-col divide-y overflow-hidden">
+        <Conversation>
+          <ConversationContent>
           {messages.map(({ versions, ...message }) => (
             <MessageBranch defaultBranch={0} key={message.key}>
               <MessageBranchContent>
@@ -633,6 +648,7 @@ export default function AgentPage() {
             </PromptInputFooter>
           </PromptInput>
         </div>
+      </div>
       </div>
     </div>
   );

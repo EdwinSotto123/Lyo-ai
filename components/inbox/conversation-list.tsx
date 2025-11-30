@@ -4,12 +4,14 @@ import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Plus, MessageCircle, Mail, Linkedin, Instagram } from "lucide-react"
+import { Search, Plus, MessageCircle, Mail, Linkedin, Instagram, Menu } from "lucide-react"
 
 interface ConversationListProps {
   activeChannel: string
   selectedId: string | null
   onSelect: (id: string) => void
+  onOpenChannels?: () => void
+  className?: string
 }
 
 const channelIcons = {
@@ -82,23 +84,30 @@ const conversations = [
   },
 ]
 
-export function ConversationList({ activeChannel, selectedId, onSelect }: ConversationListProps) {
+export function ConversationList({ activeChannel, selectedId, onSelect, onOpenChannels, className }: ConversationListProps) {
   const filteredConversations =
     activeChannel === "all" ? conversations : conversations.filter((c) => c.channel === activeChannel)
 
   return (
-    <div className="w-80 border-r border-border bg-card/20 flex flex-col">
+    <div className={cn("w-full md:w-80 border-r border-border bg-card/20 flex-col", className)}>
       {/* Header */}
-      <div className="p-4 border-b border-border">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold">Conversations</h2>
+      <div className="p-3 sm:p-4 border-b border-border">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
+          <div className="flex items-center gap-2">
+            {onOpenChannels && (
+              <Button size="icon" variant="ghost" className="h-8 w-8 md:hidden" onClick={onOpenChannels}>
+                <Menu className="h-4 w-4" />
+              </Button>
+            )}
+            <h2 className="font-semibold text-sm sm:text-base">Conversations</h2>
+          </div>
           <Button size="icon" variant="ghost" className="h-8 w-8">
             <Plus className="h-4 w-4" />
           </Button>
         </div>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input placeholder="Search conversations..." className="pl-9 bg-secondary/50" />
+          <Input placeholder="Search conversations..." className="pl-9 bg-secondary/50 text-sm" />
         </div>
       </div>
 
@@ -111,15 +120,15 @@ export function ConversationList({ activeChannel, selectedId, onSelect }: Conver
             <div
               key={conversation.id}
               className={cn(
-                "flex items-start gap-3 p-4 cursor-pointer transition-colors border-b border-border/50",
-                selectedId === conversation.id ? "bg-accent/10" : "hover:bg-muted/50",
+                "flex items-start gap-2 sm:gap-3 p-3 sm:p-4 cursor-pointer transition-colors border-b border-border/50",
+                selectedId === conversation.id ? "bg-accent/10" : "hover:bg-muted/50 active:bg-muted/70",
               )}
               onClick={() => onSelect(conversation.id)}
             >
-              <div className="relative">
-                <Avatar className="h-10 w-10">
+              <div className="relative flex-shrink-0">
+                <Avatar className="h-9 w-9 sm:h-10 sm:w-10">
                   <AvatarImage src={conversation.avatar || "/placeholder.svg"} />
-                  <AvatarFallback>
+                  <AvatarFallback className="text-xs">
                     {conversation.contact
                       .split(" ")
                       .map((n) => n[0])
@@ -128,27 +137,27 @@ export function ConversationList({ activeChannel, selectedId, onSelect }: Conver
                 </Avatar>
                 <div
                   className={cn(
-                    "absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full",
+                    "absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full",
                     channel.bg,
                   )}
                 >
-                  <ChannelIcon className={cn("h-3 w-3", channel.color)} />
+                  <ChannelIcon className={cn("h-2.5 w-2.5 sm:h-3 sm:w-3", channel.color)} />
                 </div>
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
-                  <span className={cn("font-medium text-sm truncate", conversation.unread && "text-foreground")}>
+                  <span className={cn("font-medium text-xs sm:text-sm truncate", conversation.unread && "text-foreground")}>
                     {conversation.contact}
                   </span>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap">{conversation.time}</span>
+                  <span className="text-[10px] sm:text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{conversation.time}</span>
                 </div>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1">
                   {conversation.aiReplied && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent/20 text-accent font-medium">AI</span>
+                    <span className="text-[9px] sm:text-[10px] px-1 sm:px-1.5 py-0.5 rounded bg-accent/20 text-accent font-medium flex-shrink-0">AI</span>
                   )}
                   <p
                     className={cn(
-                      "text-sm line-clamp-1",
+                      "text-xs sm:text-sm line-clamp-1",
                       conversation.unread ? "text-foreground" : "text-muted-foreground",
                     )}
                   >
@@ -156,7 +165,7 @@ export function ConversationList({ activeChannel, selectedId, onSelect }: Conver
                   </p>
                 </div>
               </div>
-              {conversation.unread && <span className="h-2 w-2 rounded-full bg-accent shrink-0 mt-2" />}
+              {conversation.unread && <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-accent shrink-0 mt-2" />}
             </div>
           )
         })}

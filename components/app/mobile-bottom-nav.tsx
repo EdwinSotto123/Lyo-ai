@@ -19,6 +19,7 @@ import {
     Plug,
     Users,
     LogOut,
+    Bot,
 } from "lucide-react"
 import { AIVoiceSelector } from "./ai-voice-selector"
 import { useAuth } from "@/lib/auth-context"
@@ -53,9 +54,9 @@ export function MobileBottomNav() {
             isCenter: true,
         },
         {
-            name: "Profile",
-            href: "/dashboard/settings",
-            icon: User,
+            name: "Agents",
+            href: "/agents",
+            icon: Bot,
             action: null,
         },
         {
@@ -126,6 +127,15 @@ export function MobileBottomNav() {
                                             >
                                                 <Users className="h-4 w-4" />
                                                 <span>Contacts</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild>
+                                            <Link
+                                                href="/dashboard/settings"
+                                                className="flex items-center gap-2 cursor-pointer"
+                                            >
+                                                <User className="h-4 w-4" />
+                                                <span>Profile</span>
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem

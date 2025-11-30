@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import { useRouter } from "@/i18n/routing"
 import { Link } from "@/i18n/routing"
 import { useTranslations } from "next-intl"
+import Image from "next/image"
 
 export default function LoginPage() {
   const { user, isLoading, signInWithGoogle } = useAuth()
@@ -24,9 +25,14 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-teal-50 flex flex-col">
       {/* Header */}
       <header className="p-6">
-        <Link href="/" className="inline-flex items-center gap-2">
-          <KinsoLogo className="h-8 w-8" />
-          <span className="text-xl font-semibold text-foreground">{t('common.appName')}</span>
+        <Link href="/" className="flex items-center flex-shrink-0 z-10">
+          <Image
+            src="/logo-lyo.webp"
+            alt="Lyo"
+            width={70}
+            height={50}
+            className="object-contain w-[35px] h-[18px] sm:w-[45px] sm:h-[22px] md:w-[50px] md:h-[25px]"
+          />
         </Link>
       </header>
 
@@ -38,12 +44,28 @@ export default function LoginPage() {
           transition={{ duration: 0.5 }}
           className="w-full max-w-md"
         >
-          {/* Login Card */}
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+          {/* Animated Border Container */}
+          <div className="relative p-[3px] rounded-2xl overflow-hidden shadow-xl">
+            {/* Animated Border Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-teal-500 via-orange-500 to-teal-500 animate-border-pulse opacity-75" />
+            
+            {/* Rotating Gradient Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-400 to-transparent animate-rotate-border opacity-50 blur-sm" />
+            
+            {/* Login Card */}
+            <div className="relative bg-white rounded-2xl p-8 z-10">
             {/* Logo */}
             <div className="flex justify-center mb-6">
               <div className="p-3 bg-gradient-to-br from-orange-100 to-teal-100 rounded-2xl">
-                <KinsoLogo className="h-12 w-12" />
+                <Link href="/" className="flex items-center flex-shrink-0 z-10">
+                  <Image
+                    src="/logo-lyo.webp"
+                    alt="Lyo"
+                    width={80}
+                    height={40}
+                    className="object-contain w-[70px] h-[36px] sm:w-[45px] sm:h-[22px] md:w-[50px] md:h-[25px]"
+                  />
+                </Link>
               </div>
             </div>
 
@@ -108,6 +130,7 @@ export default function LoginPage() {
                 {t('login.privacyPolicy')}
               </Link>
             </p>
+            </div>
           </div>
 
           {/* Back to home */}

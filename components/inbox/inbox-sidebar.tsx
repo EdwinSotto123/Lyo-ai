@@ -7,6 +7,7 @@ import { Inbox, MessageCircle, Mail, Linkedin, Instagram, CalendarDays, Archive,
 interface InboxSidebarProps {
   activeChannel: string
   onChannelChange: (channel: string) => void
+  className?: string
 }
 
 const channels = [
@@ -23,9 +24,9 @@ const filters = [
   { id: "archived", name: "Archived", icon: Archive, count: 45 },
 ]
 
-export function InboxSidebar({ activeChannel, onChannelChange }: InboxSidebarProps) {
+export function InboxSidebar({ activeChannel, onChannelChange, className }: InboxSidebarProps) {
   return (
-    <div className="w-56 border-r border-border bg-card/30 p-3 flex flex-col">
+    <div className={cn("w-full lg:w-56 border-r border-border bg-card/30 p-3 flex-col overflow-y-auto", className)}>
       <div className="mb-4">
         <h2 className="px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Channels</h2>
         <div className="mt-2 space-y-1">
@@ -34,14 +35,14 @@ export function InboxSidebar({ activeChannel, onChannelChange }: InboxSidebarPro
               key={channel.id}
               variant="ghost"
               className={cn(
-                "w-full justify-start gap-3 px-3",
+                "w-full justify-start gap-2 sm:gap-3 px-2 sm:px-3 text-sm",
                 activeChannel === channel.id && "bg-accent/10 text-accent",
               )}
               onClick={() => onChannelChange(channel.id)}
             >
-              <channel.icon className={cn("h-4 w-4", channel.color)} />
-              <span className="flex-1 text-left text-sm">{channel.name}</span>
-              {channel.count > 0 && <span className="text-xs text-muted-foreground">{channel.count}</span>}
+              <channel.icon className={cn("h-4 w-4 flex-shrink-0", channel.color)} />
+              <span className="flex-1 text-left truncate">{channel.name}</span>
+              {channel.count > 0 && <span className="text-xs text-muted-foreground flex-shrink-0">{channel.count}</span>}
             </Button>
           ))}
         </div>
@@ -55,14 +56,14 @@ export function InboxSidebar({ activeChannel, onChannelChange }: InboxSidebarPro
               key={filter.id}
               variant="ghost"
               className={cn(
-                "w-full justify-start gap-3 px-3",
+                "w-full justify-start gap-2 sm:gap-3 px-2 sm:px-3 text-sm",
                 activeChannel === filter.id && "bg-accent/10 text-accent",
               )}
               onClick={() => onChannelChange(filter.id)}
             >
-              <filter.icon className="h-4 w-4" />
-              <span className="flex-1 text-left text-sm">{filter.name}</span>
-              <span className="text-xs text-muted-foreground">{filter.count}</span>
+              <filter.icon className="h-4 w-4 flex-shrink-0" />
+              <span className="flex-1 text-left truncate">{filter.name}</span>
+              <span className="text-xs text-muted-foreground flex-shrink-0">{filter.count}</span>
             </Button>
           ))}
         </div>

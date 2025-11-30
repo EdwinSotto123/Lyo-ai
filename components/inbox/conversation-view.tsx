@@ -4,7 +4,7 @@ import { useState, useCallback } from "react"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { MessageCircle, Phone, Video, MoreHorizontal, User, Bot, Sparkles } from "lucide-react"
+import { MessageCircle, Phone, Video, MoreHorizontal, User, Bot, Sparkles, ArrowLeft } from "lucide-react"
 import {
   Conversation,
   ConversationContent,
@@ -36,6 +36,8 @@ interface ConversationViewProps {
   conversationId: string | null
   onToggleContactPanel: () => void
   showContactPanel: boolean
+  onBack?: () => void
+  className?: string
 }
 
 type MessageType = {
@@ -87,7 +89,7 @@ const suggestions = [
   "Can we schedule a call?",
 ]
 
-export function ConversationView({ conversationId, onToggleContactPanel, showContactPanel }: ConversationViewProps) {
+export function ConversationView({ conversationId, onToggleContactPanel, showContactPanel, onBack, className }: ConversationViewProps) {
   const [isAiMode, setIsAiMode] = useState(false)
   const [text, setText] = useState<string>("")
   const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready")
@@ -137,48 +139,53 @@ export function ConversationView({ conversationId, onToggleContactPanel, showCon
 
   if (!conversationId) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-background">
-        <div className="text-center">
-          <MessageCircle className="mx-auto h-12 w-12 text-muted-foreground/50" />
-          <p className="mt-4 text-muted-foreground">Select a conversation to start messaging</p>
+      <div className={cn("flex-1 flex items-center justify-center bg-background", className)}>
+        <div className="text-center p-4">
+          <MessageCircle className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground/50" />
+          <p className="mt-4 text-sm sm:text-base text-muted-foreground">Select a conversation to start messaging</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-background">
+    <div className={cn("flex-1 flex-col bg-background w-full", className)}>
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-border px-6 py-4">
-        <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10">
+      <div className="flex items-center justify-between border-b border-border px-3 sm:px-4 md:px-6 py-3 sm:py-4">
+        <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+          {onBack && (
+            <Button variant="ghost" size="icon" className="h-8 w-8 md:hidden flex-shrink-0" onClick={onBack}>
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+          )}
+          <Avatar className="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0">
             <AvatarImage src="/sarah-chen-professional.jpg" />
-            <AvatarFallback>SC</AvatarFallback>
+            <AvatarFallback className="text-xs">SC</AvatarFallback>
           </Avatar>
-          <div>
-            <h3 className="font-medium">Sarah Chen</h3>
-            <p className="text-xs text-muted-foreground flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-green-400" />
-              Online • WhatsApp
+          <div className="flex-1 min-w-0">
+            <h3 className="font-medium text-sm sm:text-base truncate">Sarah Chen</h3>
+            <p className="text-[10px] sm:text-xs text-muted-foreground flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-green-400 flex-shrink-0" />
+              <span className="truncate">Online • WhatsApp</span>
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon">
+        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+          <Button variant="ghost" size="icon" className="h-8 w-8 hidden sm:flex">
             <Phone className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" className="h-8 w-8 hidden sm:flex">
             <Video className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            className={cn(showContactPanel && "bg-accent/10 text-accent")}
+            className={cn("h-8 w-8", showContactPanel && "bg-accent/10 text-accent")}
             onClick={onToggleContactPanel}
           >
             <User className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" className="h-8 w-8">
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </div>
@@ -209,9 +216,9 @@ export function ConversationView({ conversationId, onToggleContactPanel, showCon
         </Conversation>
 
         {/* Suggestions and Input */}
-        <div className="grid shrink-0 gap-4 pt-4">
+        <div className="grid shrink-0 gap-2 sm:gap-4 pt-2 sm:pt-4">
           {isAiMode && (
-            <Suggestions className="px-4">
+            <Suggestions className="px-3 sm:px-4">
               {suggestions.map((suggestion) => (
                 <Suggestion
                   key={suggestion}
@@ -222,19 +229,21 @@ export function ConversationView({ conversationId, onToggleContactPanel, showCon
             </Suggestions>
           )}
 
-          <div className="w-full px-4 pb-4">
-            <div className="flex items-center gap-2 mb-3">
+          <div className="w-full px-3 sm:px-4 pb-3 sm:pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2 sm:mb-3">
               <Button
                 variant={isAiMode ? "default" : "outline"}
                 size="sm"
-                className="gap-2"
+                className="gap-2 text-xs sm:text-sm w-full sm:w-auto"
                 onClick={() => setIsAiMode(!isAiMode)}
               >
-                <Sparkles className="h-4 w-4" />
+                <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
                 {isAiMode ? "AI Mode Active" : "Enable AI"}
               </Button>
               {isAiMode && (
-                <span className="text-xs text-muted-foreground">LYO will suggest responses based on context</span>
+                <span className="text-[10px] sm:text-xs text-muted-foreground text-center sm:text-left">
+                  LYO will suggest responses based on context
+                </span>
               )}
             </div>
 
@@ -249,7 +258,8 @@ export function ConversationView({ conversationId, onToggleContactPanel, showCon
                 <PromptInputTextarea
                   onChange={(event) => setText(event.target.value)}
                   value={text}
-                  placeholder={isAiMode ? "Type or let AI suggest a response..." : "Type a message..."}
+                  placeholder={isAiMode ? "Type or let AI suggest..." : "Type a message..."}
+                  className="text-sm min-h-[80px] sm:min-h-[100px]"
                 />
               </PromptInputBody>
 

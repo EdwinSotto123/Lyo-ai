@@ -14,7 +14,7 @@
   },
   "login": {
     "title": "Bienvenido a Lyo",
-    "subtitle": "Una bandeja para todas las conversaciones",
+    "subtitle": "Tú Chief of Staff que filtra el ruido",
     "continueWithGoogle": "Continuar con Google",
     "signingIn": "Iniciando sesión...",
     "secureLogin": "Inicio seguro",
@@ -26,7 +26,7 @@
   "landing": {
     "hero": {
       "title": "Una bandeja, todas las conversaciones",
-      "subtitle": "Kinso reúne todos tus mensajes, correos y contactos. Aprende inteligentemente tus objetivos, entiende lo que más importa y redacta respuestas que suenan como tú.",
+      "subtitle": "Lyo reúne todos tus mensajes, correos y contactos. Aprende inteligentemente tus objetivos, entiende lo que más importa y redacta respuestas que suenan como tú.",
       "waitlist": "Únete a",
       "waitlistOthers": "personas en la lista de espera.",
       "joinNow": "Únete ahora"
@@ -44,7 +44,7 @@
       "label": "BÚSQUEDA UNIVERSAL",
       "title": "Busca en todas tus conversaciones.",
       "description1": "Encuentra cualquier cosa que hayas enviado o recibido sin conocer las palabras exactas que se usaron.",
-      "description2": "En lugar de buscar en múltiples correos y plataformas de mensajería, simplemente pregunta en la barra de búsqueda universal de Kinso."
+      "description2": "En lugar de buscar en múltiples correos y plataformas de mensajería, simplemente pregunta en la barra de búsqueda universal de Lyo."
     },
     "contextualAssistant": {
       "label": "ASISTENTE CONTEXTUAL",
@@ -60,7 +60,7 @@
     "morningBriefing": {
       "title": "Comienza cada día sabiendo",
       "titleHighlight": "lo que importa.",
-      "description": "Kinso te sirve un resumen matutino que resume mensajes cruciales y elementos de acción. Ya sea la solicitud urgente del cliente o la aprobación urgente, lo verás en orden de lo que necesita tu atención primero.",
+      "description": "Lyo te sirve un resumen matutino que resume mensajes cruciales y elementos de acción. Ya sea la solicitud urgente del cliente o la aprobación urgente, lo verás en orden de lo que necesita tu atención primero.",
       "goodMorning": "Buenos Días,",
       "newConversations": "Tienes",
       "new": "nuevas",
@@ -68,7 +68,7 @@
       "active": "activas",
       "conversations": "conversaciones.",
       "todaysBriefing": "Resumen de hoy",
-      "searchPlaceholder": "Comienza a escribir para preguntar o buscar en Kinso"
+      "searchPlaceholder": "Comienza a escribir para preguntar o buscar en Lyo"
     },
     "faq": {
       "label": "PREGUNTAS FRECUENTES",

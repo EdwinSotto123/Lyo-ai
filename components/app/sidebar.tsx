@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import {
   LayoutDashboard,
   Inbox,
@@ -48,9 +49,15 @@ export function AppSidebar({ onCommandOpen, onNavigate }: AppSidebarProps) {
       <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4">
         {!collapsed && (
           <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-orange-400 to-teal-400">
-              <span className="text-lg font-bold text-primary-foreground">L</span>
-            </div>
+            <Link href="/" className="flex items-center flex-shrink-0 z-10">
+              <Image
+                src="/logo-lyo.webp"
+                alt="Lyo"
+                width={70}
+                height={50}
+                className="object-contain w-[35px] h-[18px] sm:w-[45px] sm:h-[22px] md:w-[50px] md:h-[25px]"
+              />
+            </Link>
             <span className="text-lg font-semibold">LYO</span>
           </Link>
         )}

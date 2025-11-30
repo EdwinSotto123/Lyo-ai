@@ -34,14 +34,6 @@ export default function SettingsPage() {
               <Bell className="h-4 w-4" />
               Notifications
             </TabsTrigger>
-            <TabsTrigger value="security" className="gap-2">
-              <Shield className="h-4 w-4" />
-              Security
-            </TabsTrigger>
-            <TabsTrigger value="webhooks" className="gap-2">
-              <Webhook className="h-4 w-4" />
-              Webhooks
-            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="account" className="space-y-6">
